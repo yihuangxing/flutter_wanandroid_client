@@ -140,6 +140,7 @@ class _HarmonyosColumnWidgetState extends State<HarmonyosColumnWidget> with Auto
 
             return Column(
               children: [
+                const SizedBox(height: 12),
                 // 标签栏
                 Row(
                   children: [

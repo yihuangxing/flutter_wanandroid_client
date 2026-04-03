@@ -18,6 +18,15 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMixin<HomeWidget> {
+  /// 刷新控制器
+  final EasyRefreshController _easyRefreshController = EasyRefreshController(controlFinishLoad: true, controlFinishRefresh: true);
+
+  /// 滚动控制器
+  final ScrollController _scrollController = ScrollController();
+
+  /// 顶部栏透明度
+  double _opacity = 0.0;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -28,6 +37,25 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
     getBannerList();
     // 初始化首页文章列表
     getHomeArticleList();
+    // 监听滚动事件
+    _scrollController.addListener(() {
+      // 计算透明度，滚动距离超过100时完全不透明
+      double newOpacity = _scrollController.offset / 100;
+      if (newOpacity > 1.0) newOpacity = 1.0;
+      if (newOpacity < 0.0) newOpacity = 0.0;
+
+      if (_opacity != newOpacity) {
+        setState(() {
+          _opacity = newOpacity;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   /// banner列表
@@ -62,6 +90,10 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
         setState(() {
           homeArticleList = result.data?.datas ?? [];
         });
+        // 刷新完成
+        _easyRefreshController.finishRefresh();
+        // 加载完成
+        _easyRefreshController.finishLoad();
       }
     } catch (e) {
       // 显示toast
@@ -81,7 +113,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
           margin: const EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
             color: currentIndex == index ? Colors.red : Colors.black.withValues(alpha: 0.5),
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(2),
           ),
         ),
       ),
@@ -181,27 +213,48 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
   Widget build(BuildContext context) {
     super.build(context);
     return EasyRefresh.builder(
+      controller: _easyRefreshController,
       refreshOnStart: true,
       onRefresh: () async {
         await getHomeArticleList();
       },
       childBuilder: (context, physics) {
-        return CustomScrollView(
-          physics: physics,
-          slivers: [
-            // banner列表
-            _bannerList(),
-            SliverToBoxAdapter(child: const SizedBox(height: 12)),
-            // 首页文章列表
-            _homeArticleList(),
+        return Stack(
+          children: [
+            CustomScrollView(
+              controller: _scrollController,
+              physics: physics,
+              slivers: [
+                // banner列表
+                _bannerList(),
+                SliverToBoxAdapter(child: const SizedBox(height: 12)),
+                // 首页文章列表
+                _homeArticleList(),
 
-            // 底部文案：“我是有底线的~"
-            SliverToBoxAdapter(
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: const Center(
-                  child: Text('我是有底线的~', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                // 底部文案：“我是有底线的~"
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: const Center(
+                      child: Text('我是有底线的~', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                    ),
+                  ),
                 ),
+              ],
+            ),
+
+            // 顶部栏区域 实现滑动渐变，从透明到不透明
+            Container(
+              padding: const EdgeInsets.only(top: 24, left: 16),
+              width: double.infinity,
+              height: 68,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: _opacity),
+                boxShadow: _opacity > 0.5 ? [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 5, offset: const Offset(0, 2))] : [],
+              ),
+              child: Text(
+                'WanAndroid',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87.withValues(alpha: _opacity)),
               ),
             ),
           ],

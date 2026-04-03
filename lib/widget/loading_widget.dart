@@ -29,8 +29,6 @@ class _LoadingWidgetState extends State<LoadingWidget> {
     return Center(
       child: Container(
         color: widget.backgroundColor,
-        width:double.infinity,
-        height: double.infinity,
         child: Center(
           child: SizedBox(
             width: 50,
