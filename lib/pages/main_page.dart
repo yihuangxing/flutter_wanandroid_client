@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid_client/widget/harmonyos_column.dart';
 import 'package:flutter_wanandroid_client/widget/home_widget.dart';
 import 'package:flutter_wanandroid_client/widget/mine_widget.dart';
 
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   List<BottomNavigationBarItem> _items() {
     return [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
-      // BottomNavigationBarItem(icon: Icon(Icons.category), label: '分类'),
+      BottomNavigationBarItem(icon: Icon(Icons.article), label: '鸿蒙'),
       // BottomNavigationBarItem(icon: Icon(Icons.article), label: '文章'),
       BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
     ];
@@ -31,7 +32,12 @@ class _MainPageState extends State<MainPage> {
         controller: _pageController,
         // 禁用页面切换动画
         physics: const NeverScrollableScrollPhysics(),
-        children: [HomeWidget(), MineWidget()],
+        children: [HomeWidget(), HarmonyosColumnWidget(), MineWidget()],
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
       
       bottomNavigationBar: BottomNavigationBar(

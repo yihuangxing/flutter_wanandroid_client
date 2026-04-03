@@ -13,8 +13,8 @@ class WebviewPage extends StatefulWidget {
 
 class _WebviewPageState extends State<WebviewPage> {
   /// 文章信息
-  HomeArticleInfo? articleInfo;
-
+  var title = '';
+  var link = '';
   /// webview控制器
   late WebViewController controller;
   //当前进度条
@@ -24,7 +24,9 @@ class _WebviewPageState extends State<WebviewPage> {
   void initState() {
     super.initState();
     // 从路由参数中获取文章信息
-    articleInfo = RouteUtils.getArgument() as HomeArticleInfo?;
+    final articleInfo = RouteUtils.getArgument() as Map<String, dynamic>;
+    title = articleInfo['title'] ?? '';
+    link = articleInfo['link'] ?? '';
     // 初始化webview控制器
     controller = WebViewController()
       // 启用JS，必须设置为unrestricted模式
@@ -48,14 +50,14 @@ class _WebviewPageState extends State<WebviewPage> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(articleInfo?.link ?? ''));
+      ..loadRequest(Uri.parse(link));
     // 加载文章内容
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(articleInfo?.title ?? '')),
+      appBar: AppBar(title: Text(title)),
       body: Column(
         children: [
           if (_progress < 100)

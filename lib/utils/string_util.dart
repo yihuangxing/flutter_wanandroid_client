@@ -5,4 +5,9 @@ class StringUtil {
   static String removeMdash(String str) {
     return str.replaceAll(RegExp(r'&mdash;'), '');
   }
+
+  //去掉鸿蒙开发前缀
+  static String removeHarmonyosDevPrefix(String str) {
+    return str.replaceAll('鸿蒙开发', '');
+  }
 }

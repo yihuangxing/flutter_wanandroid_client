@@ -2,6 +2,7 @@ import 'package:flutter_wanandroid_client/api/api_constant.dart';
 import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/http/network_manager.dart';
 import 'package:flutter_wanandroid_client/model/banner_info.dart';
+import 'package:flutter_wanandroid_client/model/harmony_column_info.dart';
 import 'package:flutter_wanandroid_client/model/home_article.dart';
 
 /// API服务类
@@ -40,5 +41,13 @@ class ApiService {
   Future<BaseResult<HomeArticle>> getHomeArticleList({Map<String, dynamic>? params}) async {
     final result = await _networkManager.get(ApiConstant.homeArticleList, queryParameters: params);
     return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: HomeArticle.fromJson(result.data as Map<String, dynamic>));
+  }
+
+  /// 获取鸿蒙专栏列表
+  /// [params] 请求参数
+  /// [harmonyosColumnList] 鸿蒙专栏列表
+  Future<BaseResult<HarmonyosColumn>> getHarmonyosColumnList({Map<String, dynamic>? params}) async {
+    final result = await _networkManager.get(ApiConstant.harmonyosColumnList, queryParameters: params);
+    return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: HarmonyosColumn.fromJson(result.data as Map<String, dynamic>));
   }
 }

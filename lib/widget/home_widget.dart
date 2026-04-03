@@ -77,7 +77,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
         bannerList.length,
         (index) => Container(
           width: 20,
-          height: 4,
+          height: 2,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
             color: currentIndex == index ? Colors.red : Colors.black.withValues(alpha: 0.5),
@@ -129,7 +129,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
           return InkWell(
             onTap: () {
               // 跳转到webview页面
-              RouteUtils.to(Routes.webview, arguments: article);
+              RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title});
             },
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
