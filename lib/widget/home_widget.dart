@@ -77,7 +77,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
         bannerList.length,
         (index) => Container(
           width: 20,
-          height: 6,
+          height: 4,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
             color: currentIndex == index ? Colors.red : Colors.black.withValues(alpha: 0.5),
