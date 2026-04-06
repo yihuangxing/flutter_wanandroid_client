@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
+import 'package:flutter_wanandroid_client/controller/user_controller.dart';
 import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_wanandroid_client/routes/routes.dart';
 import 'package:flutter_wanandroid_client/utils/loading_dialog_util.dart';
 import 'package:flutter_wanandroid_client/utils/storage_util.dart';
 import 'package:flutter_wanandroid_client/utils/toast_util.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -96,10 +99,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       await LoadingDialogUtil.showDuring<BaseResult<UserInfo>>(context, () async {
         final userInfo = await ApiService().login(params: {'username': username, 'password': password});
         if (userInfo.isSuccess) {
-          ToastUtil.showSuccess('登录成功,欢迎回来，${username}！');
+          ToastUtil.showSuccess('登录成功,欢迎回来，$username！');
           // 记住密码
           StorageUtil.setString('username', username);
           StorageUtil.setString('password', password);
+          // 更新用户信息
+          Get.find<UserController>().userInfo = userInfo.data!;
           RouteUtils.back();
         } else {
           ToastUtil.showError(userInfo.errorMsg);

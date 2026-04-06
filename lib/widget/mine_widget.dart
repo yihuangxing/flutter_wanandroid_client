@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid_client/controller/user_controller.dart';
+import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
+import 'package:get/get.dart';
 
 class MineWidget extends StatefulWidget {
   const MineWidget({super.key});
@@ -14,10 +17,15 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
   @override
   bool get wantKeepAlive => true;
 
-  // 模拟用户数据
-  final String _userName = '用户名';
-  final String _userBio = '这个人很懒，什么都没留下';
-  final String _avatarUrl = '';
+  late final UserController _userController;
+
+  @override
+  void initState() {
+    super.initState();
+    _userController = Get.find<UserController>();
+  }
+
+  // 用户统计数据
   final int _followers = 128;
   final int _following = 45;
   final int _articles = 32;
@@ -57,6 +65,33 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
     ),
   ];
 
+  // 功能菜单列表 - 第三组
+  final List<MenuItem> _menuItemsGroup3 = [
+    MenuItem(
+      icon: Icons.notifications_outlined,
+      title: '我的消息',
+      onTap: () {
+        // 跳转到消息页面
+        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "我的消息"});
+      },
+    ),
+    MenuItem(
+      icon: Icons.local_activity_outlined,
+      title: '我的活动',
+      onTap: () {
+        // 跳转到活动页面
+        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "我的活动"});
+      },
+    ),
+    MenuItem(
+      icon: Icons.privacy_tip_outlined,
+      title: '隐私设置',
+      onTap: () {
+        // 跳转到隐私设置页面
+        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "隐私设置"});
+      },
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -65,31 +100,44 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
         slivers: [
           SliverAppBar(
             pinned: true, //滑动到顶端时会固定住
-            expandedHeight: 160,
+            expandedHeight: 240,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.symmetric(vertical: 10),
               background: Image.network(
-                'https://img2.baidu.com/it/u=2354404472,4757673&fm=253&fmt=auto&app=138&f=PNG?w=500&h=212',
+                'https://img1.baidu.com/it/u=4192637325,1546906515&fm=253&fmt=auto?w=500&h=941',
                 fit: BoxFit.cover,
-                height: 160,
+                height: 240,
               ),
               title: GestureDetector(
                 onTap: () {
-                  // 跳转到登录页面
-                  RouteUtils.to(Routes.login);
+                  // 跳转到登录页面 或 注册页面
+                  if (!_userController.isLogin) {
+                    // 未登录，跳转到登录页面
+                    RouteUtils.to(Routes.login);
+                  }
                 },
                 child: Container(
                   margin: const EdgeInsets.only(top: 20, left: 16),
-                  child: Row(
-                    children: [
-                      ClipRRect(borderRadius: BorderRadius.circular(20), child: Image.asset('assets/images/ic_logo.jpg', height: 40, width: 40)),
-                      SizedBox(width: 8),
-                      Text(
-                        _userName,
-                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87),
-                      ),
-                    ],
-                  ),
+                  child: Obx(() {
+                    final userInfo = _userController.userInfo;
+                    final userName = userInfo.username.isNotEmpty ? userInfo.username : '点击登录|注册';
+                    final avatarUrl = userInfo.icon;
+                    return Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: avatarUrl.isNotEmpty
+                              ? Image.network(avatarUrl, height: 40, width: 40, fit: BoxFit.cover)
+                              : Image.asset('assets/images/ic_logo.jpg', height: 40, width: 40),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          userName,
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
+                        ),
+                      ],
+                    );
+                  }),
                 ),
               ),
             ),
@@ -103,8 +151,15 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
                 _buildMenuSection(_menuItemsGroup1),
                 const SizedBox(height: 16),
                 _buildMenuSection(_menuItemsGroup2),
+                const SizedBox(height: 16),
+                _buildMenuSection(_menuItemsGroup3),
                 const SizedBox(height: 26),
-                _buildLogoutButton(),
+                Obx(() {
+                  if (_userController.isLogin) {
+                    return _buildLogoutButton();
+                  }
+                  return const SizedBox.shrink();
+                }),
                 const SizedBox(height: 16),
               ],
             ),
@@ -222,8 +277,8 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
                   onPressed: () {
                     // 执行退出登录操作
                     Navigator.of(context).pop();
-                    // 跳转到登录页面
-                    // RouteUtils.off(Routes.login);
+                    // 清空用户信息
+                    _userController.userInfo = UserInfo();
                   },
                   child: const Text('确定'),
                 ),

@@ -13,33 +13,25 @@ class LoadingWidget extends StatefulWidget {
 }
 
 class _LoadingWidgetState extends State<LoadingWidget> {
-
   final List<Color> _kDefaultRainbowColors = const [
-  Colors.red,
-  Colors.orange,
-  Colors.yellow,
-  Colors.green,
-  Colors.blue,
-  Colors.indigo,
-  Colors.purple,
-];
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.indigo,
+    Colors.purple,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        padding: const EdgeInsets.all(20),
+        width: 100,
+        height: 100,
         color: widget.backgroundColor,
-        child: Center(
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: LoadingIndicator(
-              indicatorType: Indicator.ballPulse,
-              colors: _kDefaultRainbowColors,
-              strokeWidth: 2,
-            ),
-          ),
-        ),
+        child: LoadingIndicator(indicatorType: Indicator.ballPulse, colors: _kDefaultRainbowColors, strokeWidth: 2),
       ),
     );
   }

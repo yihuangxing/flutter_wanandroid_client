@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
-import 'package:flutter_wanandroid_client/utils/storage_util.dart';
 import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 
 class RegisterPage extends StatefulWidget {

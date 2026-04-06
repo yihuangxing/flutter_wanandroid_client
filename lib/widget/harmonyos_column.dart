@@ -159,7 +159,7 @@ class _HarmonyosColumnWidgetState extends State<HarmonyosColumnWidget> with Auto
                         ),
                         child: Text(
                           StringUtil.removeHarmonyosDevPrefix(tools.name),
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: _currentIndex == 0 ? Colors.white : Colors.black87),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: _currentIndex == 0 ? Colors.white : Colors.black87),
                         ),
                       ),
                     ),
@@ -178,7 +178,7 @@ class _HarmonyosColumnWidgetState extends State<HarmonyosColumnWidget> with Auto
                         ),
                         child: Text(
                           StringUtil.removeHarmonyosDevPrefix(links.name),
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: _currentIndex == 1 ? Colors.white : Colors.black87),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: _currentIndex == 1 ? Colors.white : Colors.black87),
                         ),
                       ),
                     ),
@@ -197,7 +197,7 @@ class _HarmonyosColumnWidgetState extends State<HarmonyosColumnWidget> with Auto
                         ),
                         child: Text(
                           StringUtil.removeHarmonyosDevPrefix(open_sources.name),
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal, color: _currentIndex == 2 ? Colors.white : Colors.black87),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: _currentIndex == 2 ? Colors.white : Colors.black87),
                         ),
                       ),
                     ),

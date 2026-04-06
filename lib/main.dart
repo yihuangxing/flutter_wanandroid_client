@@ -1,15 +1,19 @@
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_wanandroid_client/controller/user_controller.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
 import 'package:flutter_wanandroid_client/utils/storage_util.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 
 void main() async {
   //WidgetsFlutterBinding.ensureInitialized() 是 Flutter 中一个非常重要的初始化方法
   // 简单来说，这句话的作用是：确保 Flutter 框架已经准备好与原生平台进行通信。
   WidgetsFlutterBinding.ensureInitialized();
   await StorageUtil.init();
+
+  // 初始化 UserController
+  Get.put(UserController());
 
   // 在 runApp 之前设置状态栏样式
   SystemChrome.setSystemUIOverlayStyle(

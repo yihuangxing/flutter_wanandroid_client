@@ -13,20 +13,21 @@ class LoadingDialogUtil {
       barrierDismissible: barrierDismissible,
       barrierColor: Colors.black54,
       builder: (context) {
-        return WillPopScope(
-          onWillPop: () async => barrierDismissible,
-          child: Dialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            child: Container(
-              width: 120,
-              height: 120,
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: BorderRadius.circular(16),
+        return PopScope(
+          canPop: barrierDismissible,
+          child: Center(
+            child: SizedBox(
+              height: 100,
+              width: 100,
+              child: Material(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: LoadingWidget(backgroundColor: backgroundColor),
+                ),
               ),
-              child: LoadingWidget(backgroundColor: backgroundColor)),
+            ),
           ),
         );
       },
