@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
+import 'package:flutter_wanandroid_client/http/base_result.dart';
+import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
+import 'package:flutter_wanandroid_client/utils/loading_dialog_util.dart';
 import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -44,7 +47,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
     super.dispose();
   }
 
-  void _handleRegister()  async {
+  void _handleRegister() async {
     // 重置错误信息
     setState(() {
       _usernameError = '';
@@ -96,21 +99,16 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
     }
 
     if (isValid) {
-          try {
-            final result = await ApiService().register(params: {
-              'username': username,
-              'password': password,
-              'repassword': confirmPassword,
-            });
-            if (result.isSuccess) {
-              ToastUtil.showSuccess('注册成功,欢迎回来，$username！');
-              RouteUtils.back();
-            } else {
-              ToastUtil.showError(result.errorMsg);
-            }
-          } catch (e) {
-            ToastUtil.showError(e.toString());
-          }
+      await LoadingDialogUtil.showDuring<BaseResult<UserInfo>>(context, () async {
+        final result = await ApiService().register(params: {'username': username, 'password': password, 'repassword': confirmPassword});
+        if (result.isSuccess) {
+          ToastUtil.showSuccess('注册成功,欢迎回来，$username！');
+          RouteUtils.back();
+        } else {
+          ToastUtil.showError(result.errorMsg);
+        }
+        return result;
+      });
     }
   }
 
@@ -187,9 +185,7 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
             gradient: const RadialGradient(colors: [Colors.white, Color(0xFFf0f0f0)]),
             // boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, spreadRadius: 5)],
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Image.asset('assets/images/ic_logo.jpg')),
+          child: ClipRRect(borderRadius: BorderRadius.circular(50), child: Image.asset('assets/images/ic_logo.jpg')),
         ),
         const SizedBox(height: 15),
         const Text(

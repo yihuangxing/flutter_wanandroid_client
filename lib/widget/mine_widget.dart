@@ -44,7 +44,6 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       title: '设置',
       onTap: () {
         // 跳转到设置页面
-        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "设置"});
       },
     ),
     MenuItem(
@@ -52,7 +51,6 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       title: '帮助与反馈',
       onTap: () {
         // 跳转到帮助与反馈页面
-        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "帮助与反馈"});
       },
     ),
     MenuItem(
@@ -60,7 +58,6 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       title: '关于我们',
       onTap: () {
         // 跳转到关于我们页面
-        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "关于我们"});
       },
     ),
   ];
@@ -72,7 +69,6 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       title: '我的消息',
       onTap: () {
         // 跳转到消息页面
-        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "我的消息"});
       },
     ),
     MenuItem(
@@ -80,7 +76,6 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       title: '我的活动',
       onTap: () {
         // 跳转到活动页面
-        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "我的活动"});
       },
     ),
     MenuItem(
@@ -88,7 +83,6 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       title: '隐私设置',
       onTap: () {
         // 跳转到隐私设置页面
-        RouteUtils.to(Routes.webview, arguments: {"link": "", "title": "隐私设置"});
       },
     ),
   ];

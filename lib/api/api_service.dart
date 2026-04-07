@@ -7,6 +7,7 @@ import 'package:flutter_wanandroid_client/model/harmony_column_info.dart';
 import 'package:flutter_wanandroid_client/model/home_article.dart';
 import 'package:flutter_wanandroid_client/model/project_list_info.dart';
 import 'package:flutter_wanandroid_client/model/project_menu_info.dart';
+import 'package:flutter_wanandroid_client/model/system_tree_info.dart';
 import 'package:flutter_wanandroid_client/model/user_info.dart';
 
 /// API服务类
@@ -81,8 +82,6 @@ class ApiService {
     return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: UserInfo.fromJson(result.data as Map<String, dynamic>));
   }
 
-
-
   /// 用户登录
   /// [params] 被花括号 {} 括起来，这表示它是命名参数，必须使用 params: value 的方式传递。
   /// [userInfo] 用户信息
@@ -93,5 +92,17 @@ class ApiService {
       return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
     }
     return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: UserInfo.fromJson(result.data as Map<String, dynamic>));
+  }
+
+  /// 体系列表
+  /// [params] 被花括号 {} 括起来，这表示它是命名参数，必须使用 params: value 的方式传递。
+  /// [systemTreeList] 体系列表
+  Future<BaseResult<List<SystemTreeInfo>>> getSystemTreeList({Map<String, dynamic>? params}) async {
+    final result = await _networkManager.get(ApiConstant.systemTreeList, queryParameters: params);
+    return BaseResult(
+      errorCode: result.errorCode,
+      errorMsg: result.errorMsg,
+      data: (result.data as List).map((e) => SystemTreeInfo.fromJson(e as Map<String, dynamic>)).toList(),
+    );
   }
 }

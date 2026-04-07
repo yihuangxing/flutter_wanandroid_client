@@ -8,6 +8,7 @@ import 'package:flutter_wanandroid_client/widget/harmonyos_column.dart';
 import 'package:flutter_wanandroid_client/widget/home_widget.dart';
 import 'package:flutter_wanandroid_client/widget/mine_widget.dart';
 import 'package:flutter_wanandroid_client/widget/project_menu_widget.dart';
+import 'package:flutter_wanandroid_client/widget/system_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -24,6 +25,7 @@ class _MainPageState extends State<MainPage> {
     return [
       BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
       BottomNavigationBarItem(icon: Icon(Icons.article), label: '鸿蒙'),
+      BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), label: '体系'),
       BottomNavigationBarItem(icon: Icon(Icons.menu), label: '项目'),
       BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
     ];
@@ -46,7 +48,7 @@ class _MainPageState extends State<MainPage> {
           controller: _pageController,
           // 禁用页面切换动画
           physics: const NeverScrollableScrollPhysics(),
-          children: [HomeWidget(), HarmonyosColumnWidget(), ProjectMenuWidget(), MineWidget()],
+          children: [HomeWidget(), HarmonyosColumnWidget(), SystemWidget(), ProjectMenuWidget(), MineWidget()],
           onPageChanged: (index) {
             setState(() {
               _currentIndex = index;

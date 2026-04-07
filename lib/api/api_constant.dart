@@ -26,4 +26,8 @@ class ApiConstant {
   ///用户登录
   static const String login = '/user/login';
 
+
+  /// 体系列表
+  static const String systemTreeList = '/tree/json';
+
 }
