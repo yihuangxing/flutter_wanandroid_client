@@ -82,11 +82,12 @@ class _SystemDetailsState extends State<SystemDetails> {
                 ),
               if (article.desc.isNotEmpty) const SizedBox(height: 12),
               // 文章信息：分类和时间
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // 分类信息
                   Text('${article.superChapterName}/${article.chapterName}', style: const TextStyle(fontSize: 12, color: Colors.blue)),
+                  const SizedBox(height: 10),
                   // 发布时间
                   Text(article.niceDate, style: const TextStyle(fontSize: 12, color: Colors.grey)),
                 ],
@@ -123,4 +124,5 @@ class _SystemDetailsState extends State<SystemDetails> {
       ),
     );
   }
+  
 }

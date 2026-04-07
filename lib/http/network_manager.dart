@@ -4,7 +4,6 @@ import 'network_config.dart';
 import 'base_result.dart';
 import 'request_interceptor.dart';
 import 'response_interceptor.dart';
-import 'network_cache.dart';
 
 /// 网络请求管理器
 class NetworkManager {
@@ -14,9 +13,6 @@ class NetworkManager {
 
   /// Dio实例
   late Dio _dio;
-
-  /// 缓存管理器
-  final NetworkCache _cacheManager = NetworkCache();
 
   /// 请求队列
   final List<CancelToken> _cancelTokens = [];
@@ -64,30 +60,9 @@ class NetworkManager {
     Map<String, dynamic>? headers,
     CancelToken? cancelToken,
     String? contentType,
-    bool useCache = true, // 是否使用缓存
-    bool refreshCache = true, // 是否在后台刷新缓存
   }) async {
     try {
-      // 生成缓存键
-      final cacheKey = _cacheManager.generateCacheKey(path, queryParameters);
-
-      // 检查缓存
-      BaseResult<dynamic>? cachedResult;
-      if (useCache) {
-        cachedResult = _cacheManager.getCache(cacheKey);
-        if (cachedResult != null) {
-          debugPrint('使用缓存数据: $cacheKey');
-
-          // 如果需要在后台刷新缓存，启动异步请求
-          if (refreshCache) {
-            _refreshCacheInBackground(path, method: method, data: data, queryParameters: queryParameters, headers: headers, cacheKey: cacheKey);
-          }
-
-          return cachedResult;
-        }
-      }
-
-      // 缓存不存在或禁用缓存，直接请求网络
+      // 直接请求网络
       return await _fetchFromNetwork(
         path,
         method: method,
@@ -96,8 +71,6 @@ class NetworkManager {
         headers: headers,
         cancelToken: cancelToken,
         contentType: contentType,
-        useCache: useCache,
-        cacheKey: cacheKey,
       );
     } on DioException catch (e) {
       // 从队列中移除已完成的令牌
@@ -115,8 +88,6 @@ class NetworkManager {
     Map<String, dynamic>? headers,
     CancelToken? cancelToken,
     String? contentType,
-    bool useCache = true,
-    required String cacheKey,
   }) async {
     final options = Options(method: method, headers: headers, contentType: contentType);
 
@@ -132,40 +103,7 @@ class NetworkManager {
     // 包装响应数据
     final result = BaseResult.fromMap(response.data);
 
-    // 检查业务状态码
-    // 更新缓存
-    if (useCache && result.isSuccess) {
-      _cacheManager.setCache(cacheKey, result);
-      debugPrint('更新缓存: $cacheKey');
-    }
-
     return result;
-  }
-
-  /// 在后台刷新缓存
-  void _refreshCacheInBackground(
-    String path, {
-    required String method,
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
-    required String cacheKey,
-  }) async {
-    try {
-      debugPrint('后台刷新缓存: $cacheKey');
-      final result = await _fetchFromNetwork(
-        path,
-        method: method,
-        data: data,
-        queryParameters: queryParameters,
-        headers: headers,
-        useCache: true,
-        cacheKey: cacheKey,
-      );
-      debugPrint('后台刷新缓存完成: $cacheKey');
-    } catch (e) {
-      debugPrint('后台刷新缓存失败: $e');
-    }
   }
 
   /// 处理错误
@@ -208,18 +146,8 @@ class NetworkManager {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     CancelToken? cancelToken,
-    bool useCache = true, // 是否使用缓存
-    bool refreshCache = true, // 是否在后台刷新缓存
   }) async {
-    return _request(
-      path,
-      method: 'GET',
-      queryParameters: queryParameters,
-      headers: headers,
-      cancelToken: cancelToken,
-      useCache: useCache,
-      refreshCache: refreshCache,
-    );
+    return _request(path, method: 'GET', queryParameters: queryParameters, headers: headers, cancelToken: cancelToken);
   }
 
   /// POST请求
@@ -230,8 +158,6 @@ class NetworkManager {
     Map<String, dynamic>? headers,
     CancelToken? cancelToken,
     String? contentType,
-    bool useCache = false, // POST请求默认不使用缓存
-    bool refreshCache = false, // POST请求默认不刷新缓存
   }) async {
     return _request(
       path,
@@ -241,8 +167,6 @@ class NetworkManager {
       headers: headers,
       cancelToken: cancelToken,
       contentType: contentType,
-      useCache: useCache,
-      refreshCache: refreshCache,
     );
   }
 
@@ -253,19 +177,8 @@ class NetworkManager {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     CancelToken? cancelToken,
-    bool useCache = false, // PUT请求默认不使用缓存
-    bool refreshCache = false, // PUT请求默认不刷新缓存
   }) async {
-    return _request(
-      path,
-      method: 'PUT',
-      data: data,
-      queryParameters: queryParameters,
-      headers: headers,
-      cancelToken: cancelToken,
-      useCache: useCache,
-      refreshCache: refreshCache,
-    );
+    return _request(path, method: 'PUT', data: data, queryParameters: queryParameters, headers: headers, cancelToken: cancelToken);
   }
 
   /// DELETE请求
@@ -274,18 +187,8 @@ class NetworkManager {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     CancelToken? cancelToken,
-    bool useCache = false, // DELETE请求默认不使用缓存
-    bool refreshCache = false, // DELETE请求默认不刷新缓存
   }) async {
-    return _request(
-      path,
-      method: 'DELETE',
-      queryParameters: queryParameters,
-      headers: headers,
-      cancelToken: cancelToken,
-      useCache: useCache,
-      refreshCache: refreshCache,
-    );
+    return _request(path, method: 'DELETE', queryParameters: queryParameters, headers: headers, cancelToken: cancelToken);
   }
 
   /// 上传文件
@@ -374,15 +277,6 @@ class NetworkManager {
     }
     _cancelTokens.remove(token);
   }
-
-  /// 清空缓存
-  void clearCache() {
-    _cacheManager.clearCache();
-    debugPrint('缓存已清空'); 
-  }
-
-  /// 获取缓存数量
-  int get cacheCount => _cacheManager.cacheCount;
 
   /// 获取Dio实例（用于扩展）
   Dio get dio => _dio;

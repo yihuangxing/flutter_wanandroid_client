@@ -10,7 +10,6 @@ lib/http/
 ├── base_result.dart       # 基础响应结果类
 ├── request_interceptor.dart # 请求拦截器
 ├── response_interceptor.dart # 响应拦截器
-├── network_cache.dart     # 网络缓存管理器
 └── README.md              # 使用文档
 ```
 
@@ -25,14 +24,7 @@ lib/http/
 - **请求拦截器**：打印请求信息，可用于添加认证token等
 - **响应拦截器**：打印响应和错误信息，统一处理响应
 
-### 2.3 缓存策略
-- **缓存优先，后台刷新**：先返回缓存数据，同时在后台请求最新数据
-- **缓存键生成**：基于URL和查询参数
-- **缓存过期时间**：默认5分钟，可配置
-- **最大缓存数量**：默认100，采用LRU策略
-- **缓存控制**：支持为特定请求启用/禁用缓存
-
-### 2.4 请求方法
+### 2.3 请求方法
 - GET：获取数据
 - POST：提交数据
 - PUT：更新数据
@@ -40,11 +32,11 @@ lib/http/
 - UPLOAD：上传文件
 - DOWNLOAD：下载文件
 
-### 2.5 错误处理
+### 2.4 错误处理
 - 网络错误统一处理
 - 业务错误由调用方处理
 
-### 2.6 其他功能
+### 2.5 其他功能
 - 请求取消
 - 上传/下载进度回调
 
@@ -71,14 +63,10 @@ class ApiService {
   Future<BaseResult<List<NewsCategoryInfo>>> getNewsCategory({
     required String appId,
     required String appSecret,
-    bool useCache = true, // 是否使用缓存
-    bool refreshCache = true, // 是否在后台刷新缓存
   }) async {
     final result = await _networkManager.get(
       '/news/types/v2',
       queryParameters: {'app_id': appId, 'app_secret': appSecret},
-      useCache: useCache,
-      refreshCache: refreshCache,
     );
     // 处理数据...
   }
@@ -96,7 +84,6 @@ import 'package:flutter_chinese_poetry/api/api_service.dart';
 // 使用API服务
 void fetchData() async {
   try {
-    // 默认使用缓存优先策略
     final result = await ApiService().getNewsCategory(
       appId: 'your_app_id',
       appSecret: 'your_app_secret',
@@ -116,87 +103,9 @@ void fetchData() async {
 }
 ```
 
-## 4. 缓存策略详解
+## 4. 高级用法
 
-### 4.1 缓存优先，后台刷新
-
-**工作流程**：
-1. 检查是否存在有效缓存
-2. 如果存在缓存，立即返回缓存数据（让用户立即看到内容）
-3. 同时在后台发起网络请求获取最新数据
-4. 请求成功后更新缓存
-5. 下次请求时会使用更新后的缓存数据
-
-### 4.2 缓存控制
-
-#### 默认使用缓存（推荐）
-
-```dart
-// 默认使用缓存优先策略
-void useCacheRequest() async {
-  try {
-    final result = await ApiService().getNewsCategory(
-      appId: 'your_app_id',
-      appSecret: 'your_app_secret',
-      // 默认 useCache: true, refreshCache: true
-    );
-    print('新闻分类: ${result.data}');
-  } catch (e) {
-    print('错误: $e');
-  }
-}
-```
-
-#### 禁用缓存（如下拉刷新）
-
-```dart
-// 禁用缓存，直接请求最新数据
-void disableCacheRequest() async {
-  try {
-    final result = await ApiService().getNewsCategory(
-      appId: 'your_app_id',
-      appSecret: 'your_app_secret',
-      useCache: false, // 禁用缓存
-    );
-    print('新闻分类: ${result.data}');
-  } catch (e) {
-    print('错误: $e');
-  }
-}
-```
-
-#### 仅使用缓存，不后台刷新
-
-```dart
-// 仅使用缓存，不后台刷新
-void onlyCacheRequest() async {
-  try {
-    final result = await ApiService().getNewsCategory(
-      appId: 'your_app_id',
-      appSecret: 'your_app_secret',
-      refreshCache: false, // 不后台刷新
-    );
-    print('新闻分类: ${result.data}');
-  } catch (e) {
-    print('错误: $e');
-  }
-}
-```
-
-### 4.3 缓存管理
-
-```dart
-// 清空缓存
-NetworkManager().clearCache();
-
-// 获取缓存数量
-int cacheCount = NetworkManager().cacheCount;
-print('当前缓存数量: $cacheCount');
-```
-
-## 5. 高级用法
-
-### 5.1 请求取消
+### 4.1 请求取消
 
 ```dart
 // 创建取消令牌
@@ -221,7 +130,7 @@ cancelToken.cancel('取消请求');
 NetworkManager().cancelAll();
 ```
 
-### 5.2 文件上传
+### 4.2 文件上传
 
 ```dart
 void uploadFile() async {
@@ -239,7 +148,7 @@ void uploadFile() async {
 }
 ```
 
-### 5.3 文件下载
+### 4.3 文件下载
 
 ```dart
 void downloadFile() async {
@@ -258,62 +167,42 @@ void downloadFile() async {
 }
 ```
 
-## 6. 注意事项
+## 5. 注意事项
 
-1. **缓存策略**：
-   - 对于频繁访问且变化不频繁的数据，使用默认的缓存优先策略
-   - 对于实时性要求高的数据（如登录状态、实时统计），禁用缓存
-   - 对于下拉刷新操作，建议禁用缓存以获取最新数据
-
-2. **POST/PUT/DELETE请求**：
-   - 默认不使用缓存，因为这些操作会修改服务器数据
-   - 如需缓存，可手动设置 `useCache: true`
-
-3. **错误处理**：
+1. **错误处理**：
    - 网络错误会抛出异常，需要用 try-catch 捕获
    - 业务错误（code != 1）不会抛出异常，需要通过 `result.isSuccess` 判断
 
-4. **性能优化**：
-   - 合理使用缓存可以减少网络请求，提高响应速度
+2. **性能优化**：
    - 避免在短时间内发起大量相同的请求
    - 对于大文件上传/下载，使用进度回调显示进度
 
-5. **安全性**：
-   - 不要在缓存中存储敏感信息（如密码、token）
+3. **安全性**：
    - 对于需要认证的请求，确保在请求拦截器中正确添加认证信息
 
-## 7. 最佳实践
+## 6. 最佳实践
 
 1. **封装API服务**：
    - 所有API调用都通过 `ApiService` 进行，不要直接使用 `NetworkManager`
    - 在 `ApiService` 中处理数据类型转换，返回类型安全的结果
 
-2. **缓存策略选择**：
-   - 列表数据：使用缓存优先策略，提升用户体验
-   - 详情数据：使用缓存优先策略，后台刷新
-   - 搜索结果：禁用缓存，确保结果最新
-   - 提交操作：禁用缓存，确保操作实时生效
-
-3. **错误处理**：
+2. **错误处理**：
    - 网络错误：显示通用错误提示（如网络连接失败）
    - 业务错误：显示具体错误信息（如用户名已存在）
    - 未知错误：显示友好的错误提示
 
-4. **UI体验**：
+3. **UI体验**：
    - 首次加载：显示加载指示器
-   - 缓存数据：立即显示，后台刷新时不影响用户操作
    - 网络错误：显示错误提示，提供重试按钮
    - 空数据：显示空状态提示
 
-## 8. 总结
+## 7. 总结
 
 本网络请求框架提供了以下核心优势：
 
 - **简洁易用**：统一的API调用方式，类型安全的返回结果
 - **功能完善**：支持所有常用HTTP方法，文件上传下载
-- **智能缓存**：缓存优先，后台刷新，提升用户体验
 - **灵活扩展**：支持自定义拦截器，可根据需求扩展功能
 - **错误处理**：统一的错误处理机制，便于调试和用户体验
-- **性能优化**：合理的缓存策略，减少网络请求，节省流量
 
 通过合理使用本框架，可以显著提升应用的网络请求性能和用户体验，同时降低开发难度和维护成本。

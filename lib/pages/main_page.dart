@@ -17,7 +17,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin {
   int _currentIndex = 0;
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -72,4 +72,8 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

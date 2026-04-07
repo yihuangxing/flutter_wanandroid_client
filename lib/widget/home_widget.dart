@@ -232,29 +232,34 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
                 _homeArticleList(),
 
                 // 底部文案：“我是有底线的~"
-                SliverToBoxAdapter(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: const Center(
-                      child: Text('我是有底线的~', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                if (homeArticleList.isNotEmpty)
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: const Center(
+                        child: Text('我是有底线的~', style: TextStyle(fontSize: 14, color: Colors.grey)),
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
 
             // 顶部栏区域 实现滑动渐变，从透明到不透明
             Container(
-              padding: const EdgeInsets.only(top: 24, left: 16),
+              padding: const EdgeInsets.only(top: 45, left: 16),
               width: double.infinity,
-              height: 68,
+              height: 90,
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: _opacity),
                 boxShadow: _opacity > 0.5 ? [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 5, offset: const Offset(0, 2))] : [],
               ),
               child: Text(
                 'WanAndroid',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87.withValues(alpha: _opacity)),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87.withValues(alpha: _opacity),
+                ),
               ),
             ),
           ],

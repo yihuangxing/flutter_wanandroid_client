@@ -18,8 +18,10 @@ class Routes {
   static final List<GetPage> pages = [
     //启动页
     GetPage(name: Routes.initial, page: () => const Splashpage(), transition: Transition.fadeIn),
+    
     //主页面
     GetPage(name: Routes.main, page: () => const MainPage(), transition: Transition.fadeIn),
+  
     //webview页面
     GetPage(name: Routes.webview, page: () => const WebviewPage(), transition: Transition.fadeIn),
 
@@ -28,6 +30,7 @@ class Routes {
 
     //注册页面
     GetPage(name: Routes.register, page: () => const RegisterPage(), transition: Transition.fadeIn),
+    
     //体系详情页面
     GetPage(name: Routes.systemDetails, page: () => const SystemDetails(), transition: Transition.fadeIn),
   ];

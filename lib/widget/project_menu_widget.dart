@@ -46,7 +46,7 @@ class _ProjectMenuWidgetState extends State<ProjectMenuWidget> with TickerProvid
         future: _futureCategories,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return SizedBox(height: 50, child: LoadingWidget());
+            return SizedBox(height: 50, child: LoadingWidget(backgroundColor:Colors.transparent,));
           }
           return Column(
             children: [

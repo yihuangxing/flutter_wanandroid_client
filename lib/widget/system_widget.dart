@@ -6,7 +6,6 @@ import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/model/system_tree_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
-import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 import 'package:flutter_wanandroid_client/widget/loading_widget.dart';
 
 class SystemWidget extends StatefulWidget {
@@ -17,7 +16,7 @@ class SystemWidget extends StatefulWidget {
   _SystemWidgetState createState() => _SystemWidgetState();
 }
 
-class _SystemWidgetState extends State<SystemWidget> {
+class _SystemWidgetState extends State<SystemWidget> with AutomaticKeepAliveClientMixin {
   /// 体系列表
   Future<BaseResult<List<SystemTreeInfo>>>? _systemTreeListFuture;
 
@@ -132,28 +131,28 @@ class _SystemWidgetState extends State<SystemWidget> {
                 },
               ),
 
-              // 顶部栏区域 实现滑动渐变，从透明到不透明
-              Container(
-                padding: const EdgeInsets.only(top: 24, left: 16),
-                width: double.infinity,
-                height: 68,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: _opacity),
-                  boxShadow: _opacity > 0.5 ? [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 5, offset: const Offset(0, 2))] : [],
-                ),
-                child: Text(
-                  '体系',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87.withValues(alpha: _opacity),
-                  ),
-                ),
+               // 顶部栏区域 实现滑动渐变，从透明到不透明
+            Container(
+              padding: const EdgeInsets.only(top: 45, left: 16),
+              width: double.infinity,
+              height: 90,
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: _opacity),
+                boxShadow: _opacity > 0.5 ? [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 5, offset: const Offset(0, 2))] : [],
               ),
+              child: Text(
+                '知识体系',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87.withValues(alpha: _opacity)),
+              ),
+            ),
             ],
           );
         }
       },
     );
   }
+  
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
