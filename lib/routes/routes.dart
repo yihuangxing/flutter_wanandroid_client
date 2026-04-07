@@ -3,6 +3,7 @@ import 'package:flutter_wanandroid_client/pages/main_page.dart';
 import 'package:flutter_wanandroid_client/pages/register_page.dart';
 import 'package:flutter_wanandroid_client/pages/splash_page.dart';
 import 'package:flutter_wanandroid_client/pages/webview_page.dart';
+import 'package:flutter_wanandroid_client/widget/system_details.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
@@ -12,6 +13,7 @@ class Routes {
   static const String webview = '/webview';
   static const String login = '/login';
   static const String register = '/register';
+  static const String systemDetails = '/system_details';
 
   static final List<GetPage> pages = [
     //启动页
@@ -26,5 +28,7 @@ class Routes {
 
     //注册页面
     GetPage(name: Routes.register, page: () => const RegisterPage(), transition: Transition.fadeIn),
+    //体系详情页面
+    GetPage(name: Routes.systemDetails, page: () => const SystemDetails(), transition: Transition.fadeIn),
   ];
 }

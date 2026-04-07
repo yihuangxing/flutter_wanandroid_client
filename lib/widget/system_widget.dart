@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
 import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/model/system_tree_info.dart';
+import 'package:flutter_wanandroid_client/routes/route_utils.dart';
+import 'package:flutter_wanandroid_client/routes/routes.dart';
+import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 import 'package:flutter_wanandroid_client/widget/loading_widget.dart';
 
 class SystemWidget extends StatefulWidget {
@@ -92,8 +95,14 @@ class _SystemWidgetState extends State<SystemWidget> {
             spacing: 10,
             children: item.children
                 .map(
-                  (e) => Chip(
-                    label: Text(e.name, style: TextStyle(fontSize: 14, color: getColor(e.id.toString()))),
+                  (e) => InkWell(
+                    onTap: () {
+                      // 跳转体系详情页面
+                      RouteUtils.to(Routes.systemDetails, arguments: e);
+                    },
+                    child: Chip(
+                      label: Text(e.name, style: TextStyle(fontSize: 14, color: getColor(e.id.toString()))),
+                    ),
                   ),
                 )
                 .toList(),
