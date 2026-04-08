@@ -35,8 +35,6 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
     super.initState();
     // 初始化banner列表
     getBannerList();
-    // 初始化首页文章列表
-    getHomeArticleList();
     // 监听滚动事件
     _scrollController.addListener(() {
       // 计算透明度，滚动距离超过100时完全不透明
@@ -161,7 +159,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
           return InkWell(
             onTap: () {
               // 跳转到webview页面
-              RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title});
+              RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title, "originId": article.id});
             },
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

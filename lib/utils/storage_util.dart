@@ -1,5 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+class StorageKey {
+  static const String loginUsername = 'loginUsername';
+  static const String loginPassword = 'loginPassword';
+  static const String loginRememberPassword = 'loginRememberPassword';
+}
+
 class StorageUtil {
   static SharedPreferences? _preferences;
 

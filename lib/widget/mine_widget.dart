@@ -3,6 +3,7 @@ import 'package:flutter_wanandroid_client/controller/user_controller.dart';
 import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
+import 'package:flutter_wanandroid_client/utils/storage_util.dart';
 import 'package:get/get.dart';
 
 class MineWidget extends StatefulWidget {
@@ -32,7 +33,19 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
 
   // 功能菜单列表 - 第一组
   final List<MenuItem> _menuItemsGroup1 = [
-    MenuItem(icon: Icons.favorite_outlined, title: '收藏夹', badge: '12', onTap: () {}),
+    MenuItem(
+      icon: Icons.favorite_outlined,
+      title: '收藏夹',
+      badge: '12',
+      onTap: () {
+        // 跳转到收藏页面
+        if(Get.find<UserController>().isLogin){
+          RouteUtils.to(Routes.collect);
+        }else{
+          RouteUtils.to(Routes.login);
+        }
+      },
+    ),
     MenuItem(icon: Icons.history_outlined, title: '浏览历史', onTap: () {}),
     MenuItem(icon: Icons.star_outlined, title: '积分', badge: '256', onTap: () {}),
   ];
@@ -209,7 +222,7 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 2))],
+        boxShadow: [BoxShadow(color: Colors.black.withAlpha(10), blurRadius: 10, offset: const Offset(0, 2))],
       ),
       child: Column(
         children: items.asMap().entries.map((entry) {
@@ -273,6 +286,8 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
                     Navigator.of(context).pop();
                     // 清空用户信息
                     _userController.userInfo = UserInfo();
+                    //清空sharedPreferences
+                    StorageUtil.clear();
                   },
                   child: const Text('确定'),
                 ),

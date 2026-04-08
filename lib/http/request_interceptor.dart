@@ -6,6 +6,8 @@ import 'network_config.dart';
 class RequestInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    // 添加默认请求头
+    options.headers.addAll(NetworkConfig.defaultHeaders());
     _onRequest(options);
     handler.next(options);
   }
@@ -13,7 +15,7 @@ class RequestInterceptor extends Interceptor {
   /// 请求拦截处理
   void _onRequest(RequestOptions options) {
     if (NetworkConfig.enableLog) {
-      debugPrint('\n===== 🔥🔥🔥请求开始🔥🔥🔥 =====');
+      debugPrint('\n=========================== 🔥🔥🔥请求开始🔥🔥🔥 ===========================');
       debugPrint('URL: ${options.uri}');
       debugPrint('Method: ${options.method}');
       debugPrint('Headers: ${options.headers}');
@@ -23,7 +25,7 @@ class RequestInterceptor extends Interceptor {
       if (options.queryParameters.isNotEmpty) {
         debugPrint('Params: ${options.queryParameters}');
       }
-      debugPrint('===== 🔥🔥🔥请求结束🔥🔥🔥 =====\n');
+      debugPrint('=========================== 🔥🔥🔥请求结束🔥🔥🔥 ===========================\n');
     }
   }
 }

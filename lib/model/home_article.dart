@@ -122,7 +122,7 @@ class HomeArticleInfo {
     shareUser: json['shareUser'] ?? '',
     superChapterId: json['superChapterId'] ?? 0,
     superChapterName: json['superChapterName'] ?? '',
-    tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+    tags: json['tags'] != null ? (json['tags'] as List<dynamic>).map((e) => e as String).toList() : [],
     title: json['title'] ?? '',
     type: json['type'] ?? 0,
     userId: json['userId'] ?? 0,

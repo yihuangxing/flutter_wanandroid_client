@@ -1,4 +1,5 @@
 import 'package:flutter_wanandroid_client/api/api_constant.dart';
+import 'package:flutter_wanandroid_client/utils/storage_util.dart';
 
 /// 网络请求配置类
 class NetworkConfig {
@@ -8,6 +9,7 @@ class NetworkConfig {
   /// 连接超时时间（毫秒）
 
   static const int connectTimeout = 10000;
+
   /// 接收超时时间（毫秒）
   static const int receiveTimeout = 10000;
 
@@ -20,9 +22,8 @@ class NetworkConfig {
   /// 默认请求头
   static Map<String, String> defaultHeaders() {
     return {
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Accept': 'application/json',
-      'User-Agent': 'Flutter-App',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Cookie': 'loginUserName=${StorageUtil.getString(StorageKey.loginUsername)}; loginUserPassword=${StorageUtil.getString(StorageKey.loginPassword)}',
     };
   }
 }

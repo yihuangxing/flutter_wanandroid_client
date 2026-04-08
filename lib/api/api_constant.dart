@@ -29,5 +29,14 @@ class ApiConstant {
 
   /// 体系列表
   static const String systemTreeList = '/tree/json';
+  
+  /// 添加收藏站内文章
+  static const String addCollectArticle = '/lg/collect/1165/json';
+
+  /// 取消收藏站内文章
+  static const String cancelCollectArticle = '/lg/uncollect_originId/2333/json';
+
+  /// 我的收藏列表
+  static const String collectArticleList = '/lg/collect/list/0/json';
 
 }

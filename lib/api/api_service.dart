@@ -3,6 +3,7 @@ import 'package:flutter_wanandroid_client/api/api_constant.dart';
 import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/http/network_manager.dart';
 import 'package:flutter_wanandroid_client/model/banner_info.dart';
+import 'package:flutter_wanandroid_client/model/collect_article_info.dart';
 import 'package:flutter_wanandroid_client/model/harmony_column_info.dart';
 import 'package:flutter_wanandroid_client/model/home_article.dart';
 import 'package:flutter_wanandroid_client/model/project_list_info.dart';
@@ -104,5 +105,37 @@ class ApiService {
       errorMsg: result.errorMsg,
       data: (result.data as List).map((e) => SystemTreeInfo.fromJson(e as Map<String, dynamic>)).toList(),
     );
+  }
+
+  //添加收藏
+  /// [params] 被花括号 {} 括起来，这表示它是命名参数，必须使用 params: value 的方式传递。
+  /// [collectArticleInfo] 收藏文章信息
+  Future<BaseResult<CollectArticleInfo>> addCollectArticle({Map<String, dynamic>? params}) async {
+    final result = await _networkManager.post(ApiConstant.addCollectArticle, data: params, contentType: Headers.formUrlEncodedContentType);
+    //这里要做判空处理 因为result.data 可能是null
+    if (result.data == null) {
+      return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
+    }
+    //这是添加收藏，所以返回的是null，而不是收藏ArticleInfo
+    return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
+  }
+
+  //取消收藏
+  /// [params] 被花括号 {} 括起来，这表示它是命名参数，必须使用 params: value 的方式传递。
+  /// [collectArticleInfo] 收藏文章信息
+  Future<BaseResult<CollectArticleInfo>> cancelCollectArticle({Map<String, dynamic>? params}) async {
+    final result = await _networkManager.post(ApiConstant.cancelCollectArticle, data: params, contentType: Headers.formUrlEncodedContentType);
+    //这里要做判空处理 因为result.data 可能是null
+    if (result.data == null) {
+      return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
+    }
+    //这是取消收藏，所以返回的是null，而不是收藏ArticleInfo
+    return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
+  }
+
+  ///我的收藏列表
+  Future<BaseResult<HomeArticle>> getCollectArticleList({Map<String, dynamic>? params}) async {
+    final result = await _networkManager.get(ApiConstant.collectArticleList, queryParameters: params);
+    return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: HomeArticle.fromJson(result.data as Map<String, dynamic>));
   }
 }

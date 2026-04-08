@@ -19,11 +19,11 @@ class ResponseInterceptor extends Interceptor {
   /// 响应拦截处理
   void _onResponse(Response response) {
     if (NetworkConfig.enableLog) {
-      debugPrint('\n===== 🔥🔥🔥响应开始🔥🔥🔥 =====');
+      debugPrint('\n=========================== 🔥🔥🔥响应开始🔥🔥🔥 ===========================');
       debugPrint('URL: ${response.requestOptions.uri}');
       debugPrint('Status Code: ${response.statusCode}');
       debugPrint('Data: ${response.data}');
-      debugPrint('===== 🔥🔥🔥响应结束🔥🔥🔥 =====\n');
+      debugPrint('=========================== 🔥🔥🔥响应结束🔥🔥🔥 ===========================\n');
     }
   }
 

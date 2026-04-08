@@ -31,7 +31,6 @@ class _SystemWidgetState extends State<SystemWidget> with AutomaticKeepAliveClie
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _systemTreeListFuture = getSystemTreeList();
     // 监听滚动事件
@@ -113,6 +112,7 @@ class _SystemWidgetState extends State<SystemWidget> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
       future: _systemTreeListFuture,
       builder: (context, snapshot) {

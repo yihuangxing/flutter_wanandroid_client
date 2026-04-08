@@ -43,10 +43,10 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic));
     _animationController.forward();
     // 初始化记住密码状态
-    _rememberPassword = StorageUtil.getBool('rememberPassword') ?? false;
+    _rememberPassword = StorageUtil.getBool(StorageKey.loginRememberPassword) ?? false;
     if (_rememberPassword) {
-      _currentUsername = StorageUtil.getString('username') ?? '';
-      _currentPassword = StorageUtil.getString('password') ?? '';
+      _currentUsername = StorageUtil.getString(StorageKey.loginUsername) ?? '';
+      _currentPassword = StorageUtil.getString(StorageKey.loginPassword) ?? '';
       if (_currentUsername.isNotEmpty && _currentPassword.isNotEmpty) {
         _usernameController.text = _currentUsername;
         _passwordController.text = _currentPassword;
@@ -101,8 +101,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         if (userInfo.isSuccess) {
           ToastUtil.showSuccess('登录成功,欢迎回来，$username！');
           // 记住密码
-          StorageUtil.setString('username', username);
-          StorageUtil.setString('password', password);
+          StorageUtil.setString(StorageKey.loginUsername, username);
+          StorageUtil.setString(StorageKey.loginPassword, password);
           // 更新用户信息
           Get.find<UserController>().userInfo = userInfo.data!;
           RouteUtils.back();
@@ -260,7 +260,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
               fillColor: WidgetStateProperty.resolveWith((states) => states.contains(WidgetState.selected) ? Color(0xFFfe4006) : Colors.grey[200]!),
               value: _rememberPassword,
               onChanged: (value) {
-                StorageUtil.setBool('rememberPassword', value ?? false);
+                StorageUtil.setBool(StorageKey.loginRememberPassword, value ?? false);
                 setState(() {
                   _rememberPassword = value ?? false;
                 });
