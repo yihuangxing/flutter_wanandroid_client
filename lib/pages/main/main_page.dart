@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 import 'package:flutter_wanandroid_client/widget/double_back_exit_widget.dart';
-import 'package:flutter_wanandroid_client/widget/harmonyos_column.dart';
-import 'package:flutter_wanandroid_client/widget/home_widget.dart';
-import 'package:flutter_wanandroid_client/widget/mine_widget.dart';
-import 'package:flutter_wanandroid_client/widget/project_menu_widget.dart';
-import 'package:flutter_wanandroid_client/widget/system_widget.dart';
+import 'package:flutter_wanandroid_client/pages/main/nav/harmonyos_column.dart';
+import 'package:flutter_wanandroid_client/pages/main/nav/home_widget.dart';
+import 'package:flutter_wanandroid_client/pages/main/nav/mine_widget.dart';
+import 'package:flutter_wanandroid_client/pages/main/nav/project_menu_widget.dart';
+import 'package:flutter_wanandroid_client/pages/main/nav/system_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

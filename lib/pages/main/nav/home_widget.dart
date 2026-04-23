@@ -8,7 +8,7 @@ import 'package:flutter_wanandroid_client/model/home_article.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/utils/string_util.dart';
 
-import '../routes/routes.dart';
+import '../../../routes/routes.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});

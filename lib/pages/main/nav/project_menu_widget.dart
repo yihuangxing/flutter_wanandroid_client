@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
 import 'package:flutter_wanandroid_client/model/project_menu_info.dart';
 import 'package:flutter_wanandroid_client/widget/loading_widget.dart';
-import 'package:flutter_wanandroid_client/widget/project_list_widget.dart';
+import 'package:flutter_wanandroid_client/pages/main/nav/project_list_widget.dart';
 
 class ProjectMenuWidget extends StatefulWidget {
   const ProjectMenuWidget({super.key});

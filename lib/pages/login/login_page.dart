@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
-import 'package:flutter_wanandroid_client/controller/user_controller.dart';
+import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
 import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';

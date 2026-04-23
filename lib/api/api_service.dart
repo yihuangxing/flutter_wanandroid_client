@@ -138,4 +138,5 @@ class ApiService {
     final result = await _networkManager.get(ApiConstant.collectArticleList, queryParameters: params);
     return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: HomeArticle.fromJson(result.data as Map<String, dynamic>));
   }
+
 }
