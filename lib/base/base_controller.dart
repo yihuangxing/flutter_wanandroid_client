@@ -38,7 +38,7 @@ abstract class BaseController<D> extends GetxController with StateMixin<D> {
     change(null, status: RxStatus.empty());
   }
 
-    /// 重试方法（子类可以覆写）
+  /// 重试方法（子类可以覆写）
   void retry() {
     loadData();
   }

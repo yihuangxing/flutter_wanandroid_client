@@ -8,7 +8,7 @@ import 'package:flutter_wanandroid_client/routes/routes.dart';
 import 'package:flutter_wanandroid_client/utils/string_util.dart';
 
 class CollectPage extends BaseStatePage<List<HomeArticleInfo>, CollectController> {
-  const CollectPage({super.key}):super(enableLoading: true);
+  const CollectPage({super.key});
 
   @override
   PreferredSizeWidget? buildAppBar() {
