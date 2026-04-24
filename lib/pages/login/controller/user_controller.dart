@@ -12,11 +12,3 @@ class UserController extends GetxController {
   // 是否登录
   bool get isLogin => _userInfo.value.username.isNotEmpty && _userInfo.value.id != 0;
 }
-
-// 注册 UserController
-class UserBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut(() => UserController());
-  }
-}

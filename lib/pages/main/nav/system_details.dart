@@ -1,52 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
+import 'package:flutter_wanandroid_client/base/base_state_page.dart';
 import 'package:flutter_wanandroid_client/http/base_result.dart';
 import 'package:flutter_wanandroid_client/model/home_article.dart';
 import 'package:flutter_wanandroid_client/model/system_tree_info.dart';
+import 'package:flutter_wanandroid_client/pages/main/controller/system_details_controller.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
 import 'package:flutter_wanandroid_client/utils/string_util.dart';
 import 'package:flutter_wanandroid_client/widget/loading_widget.dart';
 
-class SystemDetails extends StatefulWidget {
-  const SystemDetails({super.key});
+/// 体系详情列表页面
+// class SystemDetails extends StatefulWidget {
+//   const SystemDetails({super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _SystemDetailsState createState() => _SystemDetailsState();
-}
+//   @override
+//   // ignore: library_private_types_in_public_api
+//   _SystemDetailsState createState() => _SystemDetailsState();
+// }
 
-class _SystemDetailsState extends State<SystemDetails> {
-  late Future<BaseResult<HomeArticle>> _homeArticleFuture;
-  List<HomeArticleInfo> articleList = [];
+// class _SystemDetailsState extends State<SystemDetails> {
+//   late Future<BaseResult<HomeArticle>> _homeArticleFuture;
+//   List<HomeArticleInfo> articleList = [];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // 从路由参数中获取体系详情
-    SystemTreeItem systemTreeItem = RouteUtils.getArgument() as SystemTreeItem;
-    // 显示体系详情
-    _homeArticleFuture = getSystemTreeItem(systemTreeItem.id);
-    _homeArticleFuture.then((value) {
-      if (value.isSuccess) {
-        setState(() {
-          articleList = value.data?.datas ?? [];
-        });
-      }
-    });
-  }
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     // 从路由参数中获取体系详情
+//     SystemTreeItem systemTreeItem = RouteUtils.getArgument() as SystemTreeItem;
+//     // 显示体系详情
+//     _homeArticleFuture = getSystemTreeItem(systemTreeItem.id);
+//     _homeArticleFuture.then((value) {
+//       if (value.isSuccess) {
+//         setState(() {
+//           articleList = value.data?.datas ?? [];
+//         });
+//       }
+//     });
+//   }
 
-  // 获取体系详情 (对应获取首页文章列表接口)
-  Future<BaseResult<HomeArticle>> getSystemTreeItem(int cid) async {
-    final result = await ApiService().getHomeArticleList(params: {'cid': cid});
-    if (result.isSuccess) {
-      return result;
-    } else {
-      // 显示错误信息
-      return BaseResult<HomeArticle>(errorCode: result.errorCode, errorMsg: result.errorMsg);
-    }
-  }
+//   // 获取体系详情 (对应获取首页文章列表接口)
+//   Future<BaseResult<HomeArticle>> getSystemTreeItem(int cid) async {
+//     final result = await ApiService().getHomeArticleList(params: {'cid': cid});
+//     if (result.isSuccess) {
+//       return result;
+//     } else {
+//       // 显示错误信息
+//       return BaseResult<HomeArticle>(errorCode: result.errorCode, errorMsg: result.errorMsg);
+//     }
+//   }
 
   /// 体系详情列表
   Widget _articleItem(HomeArticleInfo article) {
@@ -99,29 +102,48 @@ class _SystemDetailsState extends State<SystemDetails> {
     );
   }
 
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('体系详情')),
+//       body: FutureBuilder<BaseResult<HomeArticle>>(
+//         future: _homeArticleFuture,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return Center(child: LoadingWidget(backgroundColor: Colors.transparent));
+//           }
+//           if (snapshot.hasError) {
+//             return Center(child: Text('获取体系详情失败'));
+//           }
+//           return Container(
+//             child: ListView.builder(
+//               itemCount: articleList.length,
+//               itemBuilder: (context, index) {
+//                 return _articleItem(articleList[index]);
+//               },
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
+class SystemDetails extends BaseStatePage<List<HomeArticleInfo>, SystemDetailsController> {
+  const SystemDetails({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('体系详情')),
-      body: FutureBuilder<BaseResult<HomeArticle>>(
-        future: _homeArticleFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: LoadingWidget(backgroundColor: Colors.transparent));
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('获取体系详情失败'));
-          }
-          return Container(
-            child: ListView.builder(
-              itemCount: articleList.length,
-              itemBuilder: (context, index) {
-                return _articleItem(articleList[index]);
-              },
-            ),
-          );
-        },
-      ),
+  PreferredSizeWidget? buildAppBar() {
+    return AppBar(title: Text('体系详情'));
+  }
+
+  @override
+  Widget buildSuccessContent(List<HomeArticleInfo> data) {
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        return _articleItem(data[index]);
+      },
     );
   }
   

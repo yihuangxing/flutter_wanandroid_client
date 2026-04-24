@@ -111,7 +111,7 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.symmetric(vertical: 10),
               background: Image.network(
-                'https://img1.baidu.com/it/u=4192637325,1546906515&fm=253&fmt=auto?w=500&h=941',
+                'https://img1.baidu.com/it/u=2349388132,2216215683&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1734',
                 fit: BoxFit.cover,
                 height: 240,
               ),

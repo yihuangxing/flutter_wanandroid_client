@@ -2,6 +2,7 @@ import 'package:flutter_wanandroid_client/pages/collect/controller/collect_contr
 import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
 import 'package:flutter_wanandroid_client/pages/collect/collect_page.dart';
 import 'package:flutter_wanandroid_client/pages/login/login_page.dart';
+import 'package:flutter_wanandroid_client/pages/main/controller/system_details_controller.dart';
 import 'package:flutter_wanandroid_client/pages/main/main_page.dart';
 import 'package:flutter_wanandroid_client/pages/register/register_page.dart';
 import 'package:flutter_wanandroid_client/pages/splash/splash_page.dart';
@@ -24,7 +25,7 @@ class Routes {
     GetPage(name: Routes.initial, page: () => const Splashpage(), transition: Transition.fadeIn),
 
     //主页面
-    GetPage(name: Routes.main, page: () => const MainPage(), transition: Transition.fadeIn, binding: UserBinding()),
+    GetPage(name: Routes.main, page: () => const MainPage(), transition: Transition.fadeIn, binding: MainPageBindings()),
 
     //webview页面
     GetPage(name: Routes.webview, page: () => const WebviewPage(), transition: Transition.fadeIn),
@@ -36,7 +37,7 @@ class Routes {
     GetPage(name: Routes.register, page: () => const RegisterPage(), transition: Transition.fadeIn),
 
     //体系详情页面
-    GetPage(name: Routes.systemDetails, page: () => const SystemDetails(), transition: Transition.fadeIn),
+    GetPage(name: Routes.systemDetails, page: () => const SystemDetails(), transition: Transition.fadeIn, binding: SystemDetailsBinding()),
 
     //收藏页面
     GetPage(name: Routes.collect, page: () => const CollectPage(), transition: Transition.fadeIn, binding: CollectBinding()),

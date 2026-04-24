@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
+/// 加载界面
 class LoadingWidget extends StatefulWidget {
   //控制背景颜色
   final Color backgroundColor;

@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter_wanandroid_client/api/api_service.dart';
 import 'package:flutter_wanandroid_client/base/base_controller.dart';
 import 'package:flutter_wanandroid_client/model/home_article.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 /// 收藏文章列表控制器
 class CollectController extends BaseController<List<HomeArticleInfo>> {
 
+  final EasyRefreshController easyRefreshController = EasyRefreshController(controlFinishRefresh: true, controlFinishLoad: true);
 
   @override
   Future<void> loadData() async {
@@ -14,8 +16,6 @@ class CollectController extends BaseController<List<HomeArticleInfo>> {
 
   /// 获取收藏文章列表
   Future<void> getCollectArticleList() async {
-    // 设置加载状态
-    setLoading();
     try {
       final result = await ApiService().getCollectArticleList();
       if (result.isSuccess) {
@@ -25,6 +25,8 @@ class CollectController extends BaseController<List<HomeArticleInfo>> {
         } else {
           setSuccess(data); // 数据加载成功
         }
+        easyRefreshController.finishRefresh(); // 刷新完成
+        easyRefreshController.finishLoad(); // 加载完成
       }
     } catch (e) {
       // 设置错误状态

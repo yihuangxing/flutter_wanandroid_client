@@ -2,6 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
+import 'package:flutter_wanandroid_client/pages/main/controller/harmonyos_column_controller.dart';
+import 'package:flutter_wanandroid_client/pages/main/controller/project_menu_controller.dart';
+import 'package:flutter_wanandroid_client/pages/main/controller/system_controller.dart';
 import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 import 'package:flutter_wanandroid_client/widget/double_back_exit_widget.dart';
 import 'package:flutter_wanandroid_client/pages/main/nav/harmonyos_column.dart';
@@ -9,6 +13,9 @@ import 'package:flutter_wanandroid_client/pages/main/nav/home_widget.dart';
 import 'package:flutter_wanandroid_client/pages/main/nav/mine_widget.dart';
 import 'package:flutter_wanandroid_client/pages/main/nav/project_menu_widget.dart';
 import 'package:flutter_wanandroid_client/pages/main/nav/system_widget.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -33,6 +40,7 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return DoubleBackExitWidget(
       onDoubleBack: () {
         // 处理双击返回逻辑
@@ -74,6 +82,16 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+/// 绑定UserController和HarmonyosColumnController
+class MainPageBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => UserController());
+    Get.lazyPut(() => HarmonyosColumnController());
+    Get.lazyPut(() => SystemController());
+    Get.lazyPut(() => ProjectMenuController());
+  } 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 /// 支持双击退出的页面组件
 class DoubleBackExitWidget extends StatefulWidget {
   final Widget child;
