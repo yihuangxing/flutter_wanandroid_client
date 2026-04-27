@@ -12,14 +12,8 @@ import 'package:get/get.dart';
 /// 该类是一个抽象类，用于定义基础的状态页面结构。
 /// 它包含了成功界面、加载界面、错误界面和空数据界面的构建方法。
 /// 子类需要实现 buildSuccessContent 方法，根据数据类型构建成功界面。
-/// 不是所有页面都需要onLoading，onError，onEmpty这三种状态页面，比如登录，注册页面就不需要，如何控制呢？
-/// 🎯 方案一：添加可选参数控制（推荐）
 abstract class BaseStatePage<D, C extends BaseController<D>> extends GetView<C> {
-  final bool enableLoading; // 是否显示加载界面
-  final bool enableError; // 是否显示错误界面
-  final bool enableEmpty; // 是否显示空数据界面
-
-  const BaseStatePage({super.key, this.enableLoading = true, this.enableError = true, this.enableEmpty = true});
+  const BaseStatePage({super.key});
 
   @override
   Widget build(BuildContext context) {

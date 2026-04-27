@@ -19,7 +19,6 @@ class CollectPage extends BaseStatePage<List<HomeArticleInfo>, CollectController
   Widget buildSuccessContent(List<HomeArticleInfo> articleList) {
     return EasyRefresh.builder(
       controller: controller.easyRefreshController,
-      refreshOnStart: true,
       onRefresh: () async {
         await controller.getCollectArticleList();
       },
