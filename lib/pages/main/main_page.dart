@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
 import 'package:flutter_wanandroid_client/pages/main/controller/harmonyos_column_controller.dart';
+import 'package:flutter_wanandroid_client/pages/main/controller/home_controller.dart';
 import 'package:flutter_wanandroid_client/pages/main/controller/project_menu_controller.dart';
 import 'package:flutter_wanandroid_client/pages/main/controller/system_controller.dart';
 import 'package:flutter_wanandroid_client/utils/toast_util.dart';
@@ -95,5 +96,6 @@ class MainPageBindings extends Bindings {
     Get.lazyPut(() => HarmonyosColumnController());
     Get.lazyPut(() => SystemController());
     Get.lazyPut(() => ProjectMenuController());
+    Get.lazyPut(() => HomeController());
   }
 }

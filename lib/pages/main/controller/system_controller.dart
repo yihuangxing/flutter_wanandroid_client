@@ -58,7 +58,7 @@ class SystemController extends BaseController<BaseResult<List<SystemTreeInfo>>> 
         setSuccess(result);
       }
     } catch (e) {
-      setError("获取体系列表失败: $e");
+      setError(e.toString());
     }
   }
 }

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid_client/api/api_service.dart';
 import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
-import 'package:flutter_wanandroid_client/http/base_result.dart';
-import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
-import 'package:flutter_wanandroid_client/utils/loading_dialog_util.dart';
 import 'package:flutter_wanandroid_client/utils/storage_util.dart';
-import 'package:flutter_wanandroid_client/utils/toast_util.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 
@@ -32,11 +27,16 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   String _currentUsername = '';
   String _currentPassword = '';
 
+  UserController userController = Get.find<UserController>();
+
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(duration: const Duration(milliseconds: 1500), vsync: this);
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
@@ -93,24 +93,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       });
       isValid = false;
     }
-
     if (isValid) {
-      // 执行异步任务并自动显示和隐藏加载对话框
-      await LoadingDialogUtil.showDuring<BaseResult<UserInfo>>(context, () async {
-        final userInfo = await ApiService().login(params: {'username': username, 'password': password});
-        if (userInfo.isSuccess) {
-          ToastUtil.showSuccess('登录成功,欢迎回来，$username！');
-          // 记住密码
-          StorageUtil.setString(StorageKey.loginUsername, username);
-          StorageUtil.setString(StorageKey.loginPassword, password);
-          // 更新用户信息
-          Get.find<UserController>().userInfo = userInfo.data!;
-          RouteUtils.back();
-        } else {
-          ToastUtil.showError(userInfo.errorMsg);
-        }
-        return userInfo;
-      });
+      await userController.login(username, password);
     }
   }
 
@@ -257,7 +241,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
         Row(
           children: [
             Checkbox(
-              fillColor: WidgetStateProperty.resolveWith((states) => states.contains(WidgetState.selected) ? Color(0xFFfe4006) : Colors.grey[200]!),
+              fillColor: WidgetStateProperty.resolveWith(
+                (states) => states.contains(WidgetState.selected) ? Color(0xFFfe4006) : Colors.grey[200]!,
+              ),
               value: _rememberPassword,
               onChanged: (value) {
                 StorageUtil.setBool(StorageKey.loginRememberPassword, value ?? false);
@@ -309,7 +295,12 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           },
           child: const Text(
             '立即注册',
-            style: TextStyle(color: Color(0xFFFF6A00), fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+            style: TextStyle(
+              color: Color(0xFFFF6A00),
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+            ),
           ),
         ),
       ],
