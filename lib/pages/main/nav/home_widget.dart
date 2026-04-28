@@ -11,7 +11,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../../routes/routes.dart';
 
-
 /// 首页组件
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -201,25 +200,27 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
                 ),
 
                 // 顶部栏区域 实现滑动渐变，从透明到不透明
-                Container(
-                  padding: const EdgeInsets.only(top: 45, left: 16),
-                  width: double.infinity,
-                  height: 90,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: _homeController.opacity.value),
-                    boxShadow: _homeController.opacity.value > 0.5
-                        ? [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 5, offset: const Offset(0, 2))]
-                        : [],
-                  ),
-                  child: Text(
-                    'WanAndroid',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87.withValues(alpha: _homeController.opacity.value),
+                Obx(() {
+                  return Container(
+                    padding: const EdgeInsets.only(top: 45, left: 16),
+                    width: double.infinity,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: _homeController.opacity.value),
+                      boxShadow: _homeController.opacity.value > 0.5
+                          ? [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 5, offset: const Offset(0, 2))]
+                          : [],
                     ),
-                  ),
-                ),
+                    child: Text(
+                      'WanAndroid',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87.withValues(alpha: _homeController.opacity.value),
+                      ),
+                    ),
+                  );
+                }),
               ],
             );
           },
