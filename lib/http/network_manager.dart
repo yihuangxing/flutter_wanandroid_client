@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'network_config.dart';
 import 'base_result.dart';
 import 'request_interceptor.dart';

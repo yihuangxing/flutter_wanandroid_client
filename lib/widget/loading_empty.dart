@@ -16,9 +16,9 @@ class _LoadingEmptyState extends State<LoadingEmpty> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.inbox, size: 48, color: Colors.grey),
+          Image.asset("assets/images/ic_empty.png", width: 100, height: 100),
           SizedBox(height: 16),
-          Text('糟糕，来晚了', style: TextStyle(color: Colors.grey, fontSize: 16)),
+          Text('内容正在赶来的路上', style: TextStyle(color: Colors.grey, fontSize: 16)),
           SizedBox(height: 10),
           Text('暂无数据', style: TextStyle(color: Colors.grey, fontSize: 14)),
         ],

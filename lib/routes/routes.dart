@@ -1,5 +1,5 @@
 import 'package:flutter_wanandroid_client/pages/collect/controller/collect_controller.dart';
-import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
+
 import 'package:flutter_wanandroid_client/pages/collect/collect_page.dart';
 import 'package:flutter_wanandroid_client/pages/login/login_page.dart';
 import 'package:flutter_wanandroid_client/pages/main/controller/system_details_controller.dart';
@@ -37,7 +37,12 @@ class Routes {
     GetPage(name: Routes.register, page: () => const RegisterPage(), transition: Transition.fadeIn),
 
     //体系详情页面
-    GetPage(name: Routes.systemDetails, page: () => const SystemDetails(), transition: Transition.fadeIn, binding: SystemDetailsBinding()),
+    GetPage(
+      name: Routes.systemDetails,
+      page: () => const SystemDetails(),
+      transition: Transition.fadeIn,
+      binding: SystemDetailsBinding(),
+    ),
 
     //收藏页面
     GetPage(name: Routes.collect, page: () => const CollectPage(), transition: Transition.fadeIn, binding: CollectBinding()),

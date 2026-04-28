@@ -32,9 +32,13 @@ class _WebviewPageState extends State<WebviewPage> {
 
   var isCollect = false;
 
+  late UserController _userController;
+
   @override
   void initState() {
     super.initState();
+    // 获取 UserController 实例
+    _userController = Get.find<UserController>();
     // 从路由参数中获取文章信息
     final articleInfo = RouteUtils.getArgument() as Map<String, dynamic>;
     title = articleInfo['title'] ?? '';
@@ -86,11 +90,11 @@ class _WebviewPageState extends State<WebviewPage> {
         IconButton(
           onPressed: () async {
             // 先判断是否登录
-            if (Get.find<UserController>().isLogin) {
+            if (_userController.isLogin) {
               // 已登录，继续执行收藏操作
               // 收藏功能
               LoadingDialogUtil.showDuring<BaseResult<CollectArticleInfo>>(context, () async {
-                final result = await ApiService().addCollectArticle(params: {'id': originId});
+                final result = await ApiService().addCollectArticle(originId);
                 if (result.isSuccess) {
                   // 收藏成功
                   ToastUtil.show('收藏成功');

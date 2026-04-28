@@ -29,9 +29,8 @@ class _LoadingErrorWidgetState extends State<LoadingErrorWidget> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
-
               //去掉默认阴影
               shadowColor: Colors.transparent,
             ),

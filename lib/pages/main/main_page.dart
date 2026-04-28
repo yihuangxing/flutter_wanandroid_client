@@ -89,9 +89,10 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
 class MainPageBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => UserController());
+    // 使用 permanent: true 确保 UserController 永不销毁
+    Get.put<UserController>(UserController(), permanent: true);
     Get.lazyPut(() => HarmonyosColumnController());
     Get.lazyPut(() => SystemController());
     Get.lazyPut(() => ProjectMenuController());
-  } 
+  }
 }
