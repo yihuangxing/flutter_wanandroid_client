@@ -18,6 +18,8 @@ class ProjectInfo {
   String link;
   String superChapterName;
   String title;
+  int id;
+  bool collect;
 
   //构造方法
   ProjectInfo({
@@ -28,16 +30,20 @@ class ProjectInfo {
     required this.link,
     required this.superChapterName,
     required this.title,
+    required this.id,
+    required this.collect,
   });
 
   //工厂方法
   factory ProjectInfo.fromJson(Map<String, dynamic> json) => ProjectInfo(
-    author: json['author'],
-    chapterName: json['chapterName'],
-    desc: json['desc'],
-    niceShareDate: json['niceShareDate'],
-    link: json['link'],
-    superChapterName: json['superChapterName'],
-    title: json['title'],
+    author: json['author'] ?? '',
+    chapterName: json['chapterName'] ?? '',
+    desc: json['desc'] ?? '',
+    niceShareDate: json['niceShareDate'] ?? '',
+    link: json['link'] ?? '',
+    superChapterName: json['superChapterName'] ?? '',
+    title: json['title'] ?? '',
+    id: json['id'] ?? 0,
+    collect: json['collect'] ?? false,
   );
 }

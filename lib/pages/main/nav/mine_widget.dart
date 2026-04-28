@@ -39,9 +39,9 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       badge: '12',
       onTap: () {
         // 跳转到收藏页面
-        if(Get.find<UserController>().isLogin){
+        if (Get.find<UserController>().isLogin) {
           RouteUtils.to(Routes.collect);
-        }else{
+        } else {
           RouteUtils.to(Routes.login);
         }
       },
@@ -110,11 +110,15 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
             expandedHeight: 240,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.symmetric(vertical: 10),
-              background: Image.network(
-                'https://img1.baidu.com/it/u=2349388132,2216215683&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1734',
-                fit: BoxFit.cover,
-                height: 240,
-              ),
+              background: Obx(() {
+                return _userController.userInfo.id != 0
+                    ? Image.network(
+                        "https://img1.baidu.com/it/u=2349388132,2216215683&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1734",
+                        fit: BoxFit.cover,
+                        height: 240,
+                      )
+                    : Image.asset('assets/images/ic_mine_header_bg.png', height: 240, fit: BoxFit.cover);
+              }),
               title: GestureDetector(
                 onTap: () {
                   // 跳转到登录页面 或 注册页面

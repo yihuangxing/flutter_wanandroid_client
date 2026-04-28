@@ -2,10 +2,7 @@ class HomeArticle {
   int curPage;
   List<HomeArticleInfo> datas;
 
-  HomeArticle({
-    required this.curPage,
-    required this.datas,
-  });
+  HomeArticle({required this.curPage, required this.datas});
 
   /// 从JSON创建HomeArticle实例
   factory HomeArticle.fromJson(Map<String, dynamic> json) => HomeArticle(
@@ -14,9 +11,9 @@ class HomeArticle {
   );
 }
 
-
 class HomeArticleInfo {
   bool adminAdd;
+  int originId;
   String apkLink;
   int audit;
   String author;
@@ -55,6 +52,7 @@ class HomeArticleInfo {
   /// 构造函数
   HomeArticleInfo({
     required this.adminAdd,
+    required this.originId,
     required this.apkLink,
     required this.audit,
     required this.author,
@@ -94,6 +92,7 @@ class HomeArticleInfo {
   /// 从JSON创建HomeArticleInfo实例
   factory HomeArticleInfo.fromJson(Map<String, dynamic> json) => HomeArticleInfo(
     adminAdd: json['adminAdd'] ?? false,
+    originId: json['originId'] ?? -1,
     apkLink: json['apkLink'] ?? '',
     audit: json['audit'] ?? 0,
     author: json['author'] ?? '',

@@ -30,7 +30,7 @@ Widget _articleItem(HomeArticleInfo article) {
   return InkWell(
     onTap: () {
       // 跳转到webview页面
-      RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title});
+      RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title, "originId": article.id, "collect": article.collect});
     },
     child: Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

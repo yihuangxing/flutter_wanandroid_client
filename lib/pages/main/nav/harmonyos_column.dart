@@ -95,7 +95,7 @@ class HarmonyosColumnWidget extends BaseStatePage<BaseResult<HarmonyosColumn>, H
     return InkWell(
       onTap: () {
         // 跳转到webview页面
-        RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.chapterName});
+        RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.chapterName,"originId":article.id,"collect":article.collect});
       },
       child: Card(
         elevation: 0,

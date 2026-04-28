@@ -44,6 +44,7 @@ class _WebviewPageState extends State<WebviewPage> {
     title = articleInfo['title'] ?? '';
     link = articleInfo['link'] ?? '';
     originId = articleInfo['originId'] ?? 0;
+    isCollect =articleInfo['collect'] ?? false;
 
     // 初始化webview控制器
     controller = WebViewController()
@@ -104,7 +105,6 @@ class _WebviewPageState extends State<WebviewPage> {
                 } else {
                   // 收藏失败
                   ToastUtil.show(result.errorMsg);
-                  // RouteUtils.to(Routes.login);
                 }
                 return result;
               });

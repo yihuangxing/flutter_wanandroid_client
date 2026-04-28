@@ -108,7 +108,6 @@ class ApiService {
   }
 
   //添加收藏
-  /// [params] 被花括号 {} 括起来，这表示它是命名参数，必须使用 params: value 的方式传递。
   /// [collectArticleInfo] 收藏文章信息
   Future<BaseResult<CollectArticleInfo>> addCollectArticle(int originId) async {
     final result = await _networkManager.post("https://www.wanandroid.com/lg/collect/$originId/json", contentType: Headers.formUrlEncodedContentType);
@@ -120,11 +119,11 @@ class ApiService {
     return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
   }
 
-  //取消收藏n
+  //取消收藏
   /// [params] 被花括号 {} 括起来，这表示它是命名参数，必须使用 params: value 的方式传递。
   /// [collectArticleInfo] 收藏文章信息
-  Future<BaseResult<CollectArticleInfo>> cancelCollectArticle({Map<String, dynamic>? params}) async {
-    final result = await _networkManager.post(ApiConstant.cancelCollectArticle, data: params, contentType: Headers.formUrlEncodedContentType);
+  Future<BaseResult<CollectArticleInfo>> cancelCollectArticle(int originId,{Map<String, dynamic>? params}) async {
+    final result = await _networkManager.post("https://www.wanandroid.com/lg/uncollect/$originId/json", data: params, contentType: Headers.formUrlEncodedContentType);
     //这里要做判空处理 因为result.data 可能是null
     if (result.data == null) {
       return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: null);
@@ -138,5 +137,4 @@ class ApiService {
     final result = await _networkManager.get(ApiConstant.collectArticleList, queryParameters: params);
     return BaseResult(errorCode: result.errorCode, errorMsg: result.errorMsg, data: HomeArticle.fromJson(result.data as Map<String, dynamic>));
   }
-
 }

@@ -5,6 +5,7 @@ import 'package:flutter_wanandroid_client/model/home_article.dart';
 import 'package:flutter_wanandroid_client/pages/collect/controller/collect_controller.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
+import 'package:flutter_wanandroid_client/utils/bottom_sheet_util.dart';
 import 'package:flutter_wanandroid_client/utils/string_util.dart';
 
 class CollectPage extends BaseStatePage<List<HomeArticleInfo>, CollectController> {
@@ -22,13 +23,13 @@ class CollectPage extends BaseStatePage<List<HomeArticleInfo>, CollectController
       onRefresh: () async {
         await controller.getCollectArticleList();
       },
-      childBuilder: (context, physics) => _homeArticleList(articleList, physics),
+      childBuilder: (context, physics) => _homeArticleList(articleList, physics, controller),
     );
   }
 }
 
 /// 首页文章列表
-Widget _homeArticleList(List<HomeArticleInfo> articleList, ScrollPhysics physics) {
+Widget _homeArticleList(List<HomeArticleInfo> articleList, ScrollPhysics physics, CollectController controller) {
   return ListView.builder(
     // 移除默认的ListView padding
     padding: EdgeInsets.zero,
@@ -40,7 +41,28 @@ Widget _homeArticleList(List<HomeArticleInfo> articleList, ScrollPhysics physics
       return InkWell(
         onTap: () {
           // 跳转到webview页面
-          RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title});
+          RouteUtils.to(
+            Routes.webview,
+            arguments: {"link": article.link, "title": article.title, "originId": article.id, "collect": article.collect},
+          );
+        },
+
+        onLongPress: () {
+          //长按弹出底部菜单
+          BottomSheetUtil.showByGet(
+            items: [
+              BottomSheetItem(title: '取消收藏', color: Colors.red.shade600),
+              BottomSheetItem(title: '取消', color: Colors.grey.shade600),
+            ],
+            onItemTap: (idx) {
+              if (idx == 0) {
+                // 取消收藏
+                Map<String,dynamic> prams ={};
+                prams["originId"] = article.originId;
+                controller.cancelCollect(article.id, prams);
+              }
+            },
+          );
         },
         child: Card(
           margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -89,4 +111,3 @@ Widget _homeArticleList(List<HomeArticleInfo> articleList, ScrollPhysics physics
     },
   );
 }
-

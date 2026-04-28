@@ -39,6 +39,8 @@ class HarmonyosColumnLinks {
 class HarmonyosColumnArticle {
   int audit;
   String author;
+  bool collect;
+  int id;
   String chapterName;
   String desc;
   String superChapterName;
@@ -53,6 +55,8 @@ class HarmonyosColumnArticle {
     required this.superChapterName,
     required this.niceDate,
     required this.link,
+    required this.collect,
+    required this.id,
   });
 
   // 工厂模式
@@ -65,6 +69,8 @@ class HarmonyosColumnArticle {
       superChapterName: json['superChapterName'] ?? '',
       niceDate: json['niceDate'] ?? '',
       link: json['link'] ?? '',
+      collect: json['collect'] ?? false,
+      id: json['id'] ?? 0,
     );
   }
 }

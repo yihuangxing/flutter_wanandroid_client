@@ -5,8 +5,12 @@ import 'package:loading_indicator/loading_indicator.dart';
 class LoadingWidget extends StatefulWidget {
   //控制背景颜色
   final Color backgroundColor;
+  //宽度
+  final double width;
+  //高度
+  final double height;
 
-  const LoadingWidget({super.key, this.backgroundColor = Colors.white});
+  const LoadingWidget({super.key, this.backgroundColor = Colors.white, this.width = 120, this.height = 120});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -29,10 +33,10 @@ class _LoadingWidgetState extends State<LoadingWidget> {
     return Center(
       child: Container(
         padding: const EdgeInsets.all(20),
-        width: 100,
-        height: 100,
+        width: widget.width,
+        height: widget.height,
         color: widget.backgroundColor,
-        child: LoadingIndicator(indicatorType: Indicator.ballPulse, colors: _kDefaultRainbowColors, strokeWidth: 2),
+        child: LoadingIndicator(indicatorType: Indicator.pacman, colors: _kDefaultRainbowColors, strokeWidth: 2),
       ),
     );
   }

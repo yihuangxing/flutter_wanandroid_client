@@ -159,7 +159,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
           return InkWell(
             onTap: () {
               // 跳转到webview页面
-              RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title, "originId": article.id});
+              RouteUtils.to(Routes.webview, arguments: {"link": article.link, "title": article.title, "originId": article.id, "collect": article.collect});
             },
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

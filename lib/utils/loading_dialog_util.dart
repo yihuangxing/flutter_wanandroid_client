@@ -17,8 +17,8 @@ class LoadingDialogUtil {
           canPop: barrierDismissible,
           child: Center(
             child: SizedBox(
-              height: 100,
-              width: 100,
+              height: 120,
+              width: 120,
               child: Material(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10),

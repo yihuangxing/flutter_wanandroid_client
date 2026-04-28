@@ -66,7 +66,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> with AutomaticKee
     return InkWell(
       onTap: () {
         // 跳转到webview页面
-        RouteUtils.to(Routes.webview, arguments: {"link": project.link, "title": project.chapterName});
+        RouteUtils.to(Routes.webview, arguments: {"link": project.link, "title": project.chapterName, "originId": project.id, "collect": project.collect});
       },
       child: Card(
         elevation: 0,
@@ -144,7 +144,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> with AutomaticKee
           future: _futureProjectList,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return SizedBox(height: 50, child: LoadingWidget(backgroundColor: Colors.transparent));
+              return SizedBox(height: 90, child: LoadingWidget(backgroundColor: Colors.transparent, width: 90, height: 90));
             }
 
             //这里注意 getProjectList 方法在捕获异常后返回了一个错误的 BaseResult 对象
