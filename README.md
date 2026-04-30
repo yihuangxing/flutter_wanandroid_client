@@ -10,7 +10,6 @@
 <img src="./screenshots/img_4.jpg" width="200" />
 <img src="./screenshots/img_5.jpg" width="200" />
 <img src="./screenshots/img_6.jpg" width="200" />
-<img src="./screenshots/img_6.jpg" width="200" />
 <img src="./screenshots/img_7.jpg" width="200" />
 <img src="./screenshots/img_8.jpg" width="200" />
 <img src="./screenshots/img_9.jpg" width="200" />
