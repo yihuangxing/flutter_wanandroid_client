@@ -43,7 +43,15 @@ class PrivacyPolicyDialog {
   static Future<void> show({Function()? onAgree, Function()? onDisagree}) async {
     try {
       await Get.dialog(
+        // 缓入缓出 - 两端慢，中间快
         transitionCurve: Curves.easeInOut,
+        // 缓出 - 开始快，后面慢（最自然）
+        //transitionCurve: Curves.easeOut,
+        //  缓入 - 开始慢，后面快
+        //transitionCurve: Curves.easeIn,
+        // 线性动画 - 匀速
+        //transitionCurve: Curves.linear,
+        transitionDuration: const Duration(milliseconds: 800),
         _PrivacyPolicyContent(
           onAgree: () async {
             await _saveAgreed(true);
