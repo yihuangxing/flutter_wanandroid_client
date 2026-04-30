@@ -163,15 +163,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
             gradient: const RadialGradient(colors: [Colors.white, Color(0xFFf0f0f0)]),
             // boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, spreadRadius: 5)],
           ),
-          child: ClipRRect(borderRadius: BorderRadius.circular(50), child: Image.asset('assets/images/ic_logo.jpg')),
+          child: ClipRRect(borderRadius: BorderRadius.circular(50), child: Image.asset('assets/images/ic_logo.png')),
         ),
         const SizedBox(height: 20),
         const Text(
           'WanAndroid',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black, letterSpacing: 4),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF0077f1), letterSpacing: 4),
         ),
         const SizedBox(height: 8),
-        Text('登录您的账户', style: TextStyle(fontSize: 16, color: Colors.grey[600])),
+        Text('登录您的账户', style: TextStyle(fontSize: 16, color: Color(0xFF999999))),
       ],
     );
   }
@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           children: [
             Checkbox(
               fillColor: WidgetStateProperty.resolveWith(
-                (states) => states.contains(WidgetState.selected) ? Color(0xFFfe4006) : Colors.grey[200]!,
+                (states) => states.contains(WidgetState.selected) ? Color(0xFF0077f1) : Colors.grey[200]!,
               ),
               value: _rememberPassword,
               onChanged: (value) {
@@ -271,8 +271,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        gradient: const LinearGradient(colors: [Color(0xFFFF6A00), Color(0xFFfe4006)]),
-        boxShadow: [BoxShadow(color: const Color(0xFFfe4006).withValues(alpha: 0.4), blurRadius: 15, offset: const Offset(0, 8))],
+        gradient: const LinearGradient(colors: [Color(0xFF0077f1), Color(0xFF0077f1)]),
+        boxShadow: [BoxShadow(color: const Color(0xFF0077f1).withValues(alpha: 0.4), blurRadius: 15, offset: const Offset(0, 8))],
       ),
       child: MaterialButton(
         onPressed: _handleLogin,
@@ -296,7 +296,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           child: const Text(
             '立即注册',
             style: TextStyle(
-              color: Color(0xFFFF6A00),
+              color: Color(0xFF0077f1),
               fontSize: 15,
               fontWeight: FontWeight.bold,
               decoration: TextDecoration.underline,

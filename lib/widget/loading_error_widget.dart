@@ -27,11 +27,11 @@ class _LoadingErrorWidgetState extends State<LoadingErrorWidget> {
 
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
-              //去掉默认阴影
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.red,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25),side: BorderSide(color: Colors.red)),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              //去掉默认阴影  
               shadowColor: Colors.transparent,
             ),
             // ✅ 直接使用 BaseController 的 retry

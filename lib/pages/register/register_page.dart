@@ -185,15 +185,15 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
             gradient: const RadialGradient(colors: [Colors.white, Color(0xFFf0f0f0)]),
             // boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, spreadRadius: 5)],
           ),
-          child: ClipRRect(borderRadius: BorderRadius.circular(50), child: Image.asset('assets/images/ic_logo.jpg')),
+          child: ClipRRect(borderRadius: BorderRadius.circular(50), child: Image.asset('assets/images/ic_logo.png')),
         ),
         const SizedBox(height: 15),
         const Text(
           'WanAndroid',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black, letterSpacing: 4),
+          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF0077f1), letterSpacing: 4),
         ),
         const SizedBox(height: 8),
-        Text('开始您的学习之旅', style: TextStyle(fontSize: 14, color: Colors.grey[600])),
+        Text('开始您的学习之旅', style: TextStyle(fontSize: 14, color: Color(0xFF999999))),
       ],
     );
   }
@@ -298,8 +298,8 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
       height: 55,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        gradient: const LinearGradient(colors: [Color(0xFFfe4006), Color(0xFFfe4006)]),
-        boxShadow: [BoxShadow(color: const Color(0xFFfe4006).withValues(alpha: 0.4), blurRadius: 15, offset: const Offset(0, 8))],
+        gradient: const LinearGradient(colors: [Color(0xFF0077f1), Color(0xFF0077f1)]),
+        boxShadow: [BoxShadow(color: const Color(0xFF0077f1).withValues(alpha: 0.4), blurRadius: 15, offset: const Offset(0, 8))],
       ),
       child: MaterialButton(
         onPressed: _handleRegister,
@@ -318,11 +318,11 @@ class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderSt
         Text('已有账号？', style: TextStyle(color: Colors.grey[600], fontSize: 15)),
         TextButton(
           onPressed: () {
-            RouteUtils.off('/login');
+            RouteUtils.back();
           },
           child: const Text(
             '立即登录',
-            style: TextStyle(color: Color(0xFFfe4006), fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
+            style: TextStyle(color: Color(0xFF0077f1), fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),
           ),
         ),
       ],

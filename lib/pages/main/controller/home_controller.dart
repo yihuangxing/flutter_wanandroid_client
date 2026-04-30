@@ -43,7 +43,6 @@ class HomeController extends BaseController {
     if (opacity.value != newOpacity) {
       opacity.value = newOpacity;
     }
-    debugPrint("滚动距离--------------: ${scrollController.offset}");
   }
 
   @override

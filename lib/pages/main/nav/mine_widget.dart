@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid_client/pages/login/controller/user_controller.dart';
-import 'package:flutter_wanandroid_client/model/user_info.dart';
 import 'package:flutter_wanandroid_client/routes/route_utils.dart';
 import 'package:flutter_wanandroid_client/routes/routes.dart';
-import 'package:flutter_wanandroid_client/utils/storage_util.dart';
+import 'package:flutter_wanandroid_client/widget/dialog/login_out_dialog.dart';
 import 'package:get/get.dart';
 
 class MineWidget extends StatefulWidget {
@@ -113,7 +112,7 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
               background: Obx(() {
                 return _userController.userInfo.id != 0
                     ? Image.network(
-                        "https://img1.baidu.com/it/u=2349388132,2216215683&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=1734",
+                        "https://img0.baidu.com/it/u=317835332,3557759002&fm=253&fmt=auto&app=120&f=JPEG?w=1333&h=800",
                         fit: BoxFit.cover,
                         height: 240,
                       )
@@ -139,7 +138,7 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
                           borderRadius: BorderRadius.circular(20),
                           child: avatarUrl.isNotEmpty
                               ? Image.network(avatarUrl, height: 40, width: 40, fit: BoxFit.cover)
-                              : Image.asset('assets/images/ic_logo.jpg', height: 40, width: 40),
+                              : Image.asset('assets/images/ic_logo.png', height: 40, width: 40),
                         ),
                         SizedBox(width: 8),
                         Text(
@@ -271,33 +270,8 @@ class _MineWidgetState extends State<MineWidget> with AutomaticKeepAliveClientMi
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: ElevatedButton(
         onPressed: () {
-          // 显示退出登录确认对话框
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('退出登录'),
-              content: const Text('确定要退出登录吗？'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('取消'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // 执行退出登录操作
-                    Navigator.of(context).pop();
-                    // 清空用户信息
-                    _userController.userInfo = UserInfo();
-                    //清空sharedPreferences
-                    StorageUtil.clear();
-                  },
-                  child: const Text('确定'),
-                ),
-              ],
-            ),
-          );
+          // 使用统一的退出登录弹窗组件
+          LoginOutDialog.show();
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,

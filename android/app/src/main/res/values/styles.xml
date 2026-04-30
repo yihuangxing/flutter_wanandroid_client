@@ -6,11 +6,14 @@
              the Flutter engine draws its first frame -->
         <item name="android:windowBackground">@drawable/launch_background</item>
                 <!-- 添加以下属性实现沉浸式效果 -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- 禁止窗口预览动画，让背景直接显示 -->
+        <item name="android:windowDisablePreview">false</item>
     </style>
     <!-- Theme applied to the Android Window as soon as the process has started.
          This theme determines the color of the Android Window while your

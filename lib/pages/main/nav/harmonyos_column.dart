@@ -45,7 +45,7 @@ class HarmonyosColumnWidget extends BaseStatePage<BaseResult<HarmonyosColumn>, H
               margin: i == 0 ? const EdgeInsets.symmetric(horizontal: 10) : null,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               decoration: BoxDecoration(
-                color: controller.currentIndexValue == i ? Colors.red : Colors.transparent,
+                color: controller.currentIndexValue == i ? Color(0xFF0077f1) : Colors.transparent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(

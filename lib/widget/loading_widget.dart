@@ -10,7 +10,7 @@ class LoadingWidget extends StatefulWidget {
   //高度
   final double height;
 
-  const LoadingWidget({super.key, this.backgroundColor = Colors.white, this.width = 120, this.height = 120});
+  const LoadingWidget({super.key, this.backgroundColor = Colors.white, this.width = 110, this.height = 110});
 
   @override
   // ignore: library_private_types_in_public_api

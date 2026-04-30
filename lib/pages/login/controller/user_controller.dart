@@ -18,15 +18,14 @@ class UserController extends BaseController<UserInfo> {
 
   // 是否登录
   bool get isLogin => _userInfo.value.username.isNotEmpty && _userInfo.value.id != 0;
-  
-  @override
-  Future<void> loadData() async {
-  }
 
+  @override
+  Future<void> loadData() async {}
 
   //登录
   Future<void> login(String username, String password) async {
-    await LoadingDialogUtil.showDuring<BaseResult<UserInfo>>(Get.context!, () async {
+    try {
+      await LoadingDialogUtil.showDuring<BaseResult<UserInfo>>(Get.context!, () async {
         final currentUserInfo = await ApiService().login(params: {'username': username, 'password': password});
         if (currentUserInfo.isSuccess) {
           ToastUtil.show('登录成功,欢迎回来，$username！');
@@ -41,6 +40,9 @@ class UserController extends BaseController<UserInfo> {
         }
         return currentUserInfo;
       });
-
+    } catch (e) {
+      // 显示toast
+      ToastUtil.show(e.toString());
+    }
   }
 }

@@ -18,8 +18,8 @@ class ProjectMenuWidget extends BaseStatePage<List<ProductMenuInfo>, ProjectMenu
             controller: controller.tabController,
             tabAlignment: TabAlignment.start,
             isScrollable: true,
-            indicatorColor: Colors.red,
-            labelColor: Colors.red,
+            indicatorColor: Color(0xFF0077f1),
+            labelColor: Color(0xFF0077f1),
             dividerHeight: 0,
             unselectedLabelColor: Colors.grey,
             indicatorWeight: 4, // 指示器的粗细/高度，默认2个逻辑像素

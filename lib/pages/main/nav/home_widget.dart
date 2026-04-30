@@ -41,7 +41,7 @@ class _HomeWidgetState extends State<HomeWidget> with AutomaticKeepAliveClientMi
           height: 2,
           margin: const EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
-            color: currentIndex == index ? Colors.red : Colors.black.withValues(alpha: 0.5),
+            color: currentIndex == index ? Color(0xFF0077f1) : Colors.black.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(2),
           ),
         ),

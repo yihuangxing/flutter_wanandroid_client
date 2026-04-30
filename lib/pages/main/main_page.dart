@@ -69,8 +69,8 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
           items: _items(),
           currentIndex: _currentIndex,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.grey,
+          selectedItemColor: Color(0xFF0077f1),
+          unselectedItemColor: Color(0xFF999999),
           backgroundColor: Colors.white,
           onTap: (index) {
             setState(() {

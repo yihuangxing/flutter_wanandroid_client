@@ -50,5 +50,5 @@ abstract class BaseStatePage<D, C extends BaseController<D>> extends GetView<C> 
   Widget buildError(String error) => LoadingErrorWidget(error: error, retry: controller.retry);
 
   /// 构建空数据界面（可选覆写）
-  Widget buildEmpty() => const LoadingEmpty();
+  Widget buildEmpty() => LoadingEmpty();
 }
