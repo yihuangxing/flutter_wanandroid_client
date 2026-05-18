@@ -7,7 +7,9 @@ class HomeArticle {
   /// 从JSON创建HomeArticle实例
   factory HomeArticle.fromJson(Map<String, dynamic> json) => HomeArticle(
     curPage: json['curPage'] ?? 0,
-    datas: (json['datas'] as List<dynamic>).map((e) => HomeArticleInfo.fromJson(e)).toList(),
+    datas: (json['datas'] as List<dynamic>)
+        .map((e) => HomeArticleInfo.fromJson(e))
+        .toList(),
   );
 }
 
@@ -42,7 +44,7 @@ class HomeArticleInfo {
   String shareUser;
   int superChapterId;
   String superChapterName;
-  List<String> tags;
+  List<HomeArticleTag> tags;
   String title;
   int type;
   int userId;
@@ -90,42 +92,59 @@ class HomeArticleInfo {
   });
 
   /// 从JSON创建HomeArticleInfo实例
-  factory HomeArticleInfo.fromJson(Map<String, dynamic> json) => HomeArticleInfo(
-    adminAdd: json['adminAdd'] ?? false,
-    originId: json['originId'] ?? -1,
-    apkLink: json['apkLink'] ?? '',
-    audit: json['audit'] ?? 0,
-    author: json['author'] ?? '',
-    canEdit: json['canEdit'] ?? false,
-    chapterId: json['chapterId'] ?? 0,
-    chapterName: json['chapterName'] ?? '',
-    collect: json['collect'] ?? false,
-    courseId: json['courseId'] ?? 0,
-    desc: json['desc'] ?? '',
-    descMd: json['descMd'] ?? '',
-    envelopePic: json['envelopePic'] ?? '',
-    fresh: json['fresh'] ?? false,
-    host: json['host'] ?? '',
-    id: json['id'] ?? 0,
-    isAdminAdd: json['isAdminAdd'] ?? false,
-    link: json['link'] ?? '',
-    niceDate: json['niceDate'] ?? '',
-    niceShareDate: json['niceShareDate'] ?? '',
-    origin: json['origin'] ?? '',
-    prefix: json['prefix'] ?? '',
-    projectLink: json['projectLink'] ?? '',
-    publishTime: json['publishTime'] ?? 0,
-    realSuperChapterId: json['realSuperChapterId'] ?? 0,
-    selfVisible: json['selfVisible'] ?? 0,
-    shareDate: json['shareDate'] ?? 0,
-    shareUser: json['shareUser'] ?? '',
-    superChapterId: json['superChapterId'] ?? 0,
-    superChapterName: json['superChapterName'] ?? '',
-    tags: json['tags'] != null ? (json['tags'] as List<dynamic>).map((e) => e as String).toList() : [],
-    title: json['title'] ?? '',
-    type: json['type'] ?? 0,
-    userId: json['userId'] ?? 0,
-    visible: json['visible'] ?? 0,
-    zan: json['zan'] ?? 0,
-  );
+  factory HomeArticleInfo.fromJson(Map<String, dynamic> json) =>
+      HomeArticleInfo(
+        adminAdd: json['adminAdd'] ?? false,
+        originId: json['originId'] ?? -1,
+        apkLink: json['apkLink'] ?? '',
+        audit: json['audit'] ?? 0,
+        author: json['author'] ?? '',
+        canEdit: json['canEdit'] ?? false,
+        chapterId: json['chapterId'] ?? 0,
+        chapterName: json['chapterName'] ?? '',
+        collect: json['collect'] ?? false,
+        courseId: json['courseId'] ?? 0,
+        desc: json['desc'] ?? '',
+        descMd: json['descMd'] ?? '',
+        envelopePic: json['envelopePic'] ?? '',
+        fresh: json['fresh'] ?? false,
+        host: json['host'] ?? '',
+        id: json['id'] ?? 0,
+        isAdminAdd: json['isAdminAdd'] ?? false,
+        link: json['link'] ?? '',
+        niceDate: json['niceDate'] ?? '',
+        niceShareDate: json['niceShareDate'] ?? '',
+        origin: json['origin'] ?? '',
+        prefix: json['prefix'] ?? '',
+        projectLink: json['projectLink'] ?? '',
+        publishTime: json['publishTime'] ?? 0,
+        realSuperChapterId: json['realSuperChapterId'] ?? 0,
+        selfVisible: json['selfVisible'] ?? 0,
+        shareDate: json['shareDate'] ?? 0,
+        shareUser: json['shareUser'] ?? '',
+        superChapterId: json['superChapterId'] ?? 0,
+        superChapterName: json['superChapterName'] ?? '',
+        tags: ((json['tags'] ?? []) as List<dynamic>)
+            .map((e) => HomeArticleTag.fromJson(e))
+            .toList(),
+        title: json['title'] ?? '',
+        type: json['type'] ?? 0,
+        userId: json['userId'] ?? 0,
+        visible: json['visible'] ?? 0,
+        zan: json['zan'] ?? 0,
+      );
+}
+
+class HomeArticleTag {
+  final String name;
+  final String url;
+
+  HomeArticleTag({required this.name, required this.url});
+
+  factory HomeArticleTag.fromJson(Map<String, dynamic> json) {
+    return HomeArticleTag(
+      name: json['name'] ?? '未知tag',
+      url: json['url'] ?? '未知url',
+    );
+  }
 }

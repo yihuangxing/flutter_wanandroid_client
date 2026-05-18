@@ -92,6 +92,7 @@ class HomeController extends BaseController {
       easyRefreshController.finishLoad();
       isLoading.value = false;
       loadFailedText.value = e.toString();
+      rethrow;
     }
   }
 
