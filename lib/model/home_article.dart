@@ -42,7 +42,8 @@ class HomeArticleInfo {
   String shareUser;
   int superChapterId;
   String superChapterName;
-  List<String> tags;
+  // List<String> tags;
+  List<HomeArticleTag> tags;
   String title;
   int type;
   int userId;
@@ -121,11 +122,24 @@ class HomeArticleInfo {
     shareUser: json['shareUser'] ?? '',
     superChapterId: json['superChapterId'] ?? 0,
     superChapterName: json['superChapterName'] ?? '',
-    tags: json['tags'] != null ? (json['tags'] as List<dynamic>).map((e) => e as String).toList() : [],
+    tags: json['tags'] != null ? (json['tags'] as List<dynamic>).map((e) => HomeArticleTag.fromJson(e)).toList() : [],
     title: json['title'] ?? '',
     type: json['type'] ?? 0,
     userId: json['userId'] ?? 0,
     visible: json['visible'] ?? 0,
     zan: json['zan'] ?? 0,
   );
+}
+class HomeArticleTag {
+  String name;
+  String url;
+
+  HomeArticleTag({required this.name, required this.url});
+
+  factory HomeArticleTag.fromJson(Map<String, dynamic> json) {
+    return HomeArticleTag(
+      name: json['name'] ?? '未知tag',
+      url: json['url'] ?? '未知url',
+    );
+  }
 }
